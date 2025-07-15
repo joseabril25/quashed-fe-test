@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: 6 107 228;
+    --color-primary-light: 10 121 255;
+    --color-primary-dark: 4 60 129;
+    --color-error: 255 40 25;
+  }
+}
+
+@layer base {
+  input {
+    width: 188px;
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid rgba(149, 153, 169, 1);
+    transition: all 0.2s;
+    outline: none;
+    background-color: white;
+  }
+}
