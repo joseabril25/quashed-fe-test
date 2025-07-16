@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
 
 @layer base {
   :root {
@@ -9,10 +10,18 @@
     --color-neutral: 96 100 118;
     --color-mono: 3 25 52;
     --color-warning: 255 147 65;
+    --color-border: 149 153 169;
   }
 }
 
 @layer base {
+  body {
+    font-family: 'Gabarito', sans-serif;
+    background-color: white;
+    color: var(--color-mono);
+    margin: 0;
+    padding: 0;
+  }
   input {
     width: 188px;
     height: 40px;
@@ -22,5 +31,37 @@
     transition: all 0.2s;
     outline: none;
     background-color: white;
+  }
+
+  textarea {
+    width: 244px;
+    height: 120px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid rgba(149, 153, 169, 1);
+    transition: all 0.2s;
+    outline: none;
+    background-color: white;
+    resize: none;
+    font-family: inherit;
+  }
+
+  h3 {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 28px;
+    color: var(--color-mono);
+  }
+  h4 {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 24px;
+    color: var(--color-mono);
+  }
+  h5 {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 20px;
+    color: var(--color-mono);
   }
 }

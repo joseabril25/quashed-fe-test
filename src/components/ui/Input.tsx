@@ -7,7 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = ({ error, errorMessage, className = '', ref, ...props }: InputProps & { ref?: React.Ref<HTMLInputElement> }) => {    
     const stateStyles = {
-      default: 'border-gray-300 bg-white placeholder-gray-500 hover:border-[rgb(var(--color-primary))]-100 focus:border-[rgb(var(--color-primary))]-100',
+      default: 'border-[rgb(var(--color-border))] bg-white placeholder-gray-500 hover:border-[rgb(var(--color-primary))] focus:border-[rgb(var(--color-primary))] focus:ring-2 focus:ring-blue-100',
       error: 'border-[rgb(var(--color-error))] bg-white placeholder-gray-500 hover:border-[rgb(var(--color-error))]',
       disabled: 'border-gray-200 bg-gray-50 placeholder-gray-300 cursor-not-allowed opacity-60 focus:none'
     };
