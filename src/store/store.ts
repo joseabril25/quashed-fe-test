@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "./slices/userSlice";
+import { baseApi } from "./api";
 
 
 export const store = configureStore({
@@ -7,12 +8,12 @@ export const store = configureStore({
     user: userReducer,
     // Add your reducers here
     // For example, if you have a baseAPIQuery reducer:
-    // [baseAPIQuery.reducerPath]: baseAPIQuery.reducer
+    [baseApi.reducerPath]: baseApi.reducer
   },
-  // middleware: getDefaultMiddleware =>
-  //   getDefaultMiddleware({
-  //     serializableCheck: false
-  //   }).concat(baseAPIQuery.middleware)
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    }).concat(baseApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>;

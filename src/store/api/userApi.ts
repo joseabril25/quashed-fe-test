@@ -1,5 +1,6 @@
 import { baseApi, mockDelay } from './index';
 import type { User } from '../../types/apiTypes';
+import { setUser } from '../slices/userSlice';
 
 // Mock data
 const mockUser: User = {
@@ -14,20 +15,10 @@ export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Get current logged in user data
     getMe: builder.query<User, void>({
-      queryFn: async () => {
+      queryFn: async (_, { dispatch }) => {
         await mockDelay(500);
         
-        // Mock auth check
-        const token = localStorage.getItem('token');
-        if (!token) {
-          return {
-            error: {
-              status: 401,
-              data: { message: 'Not authenticated' }
-            }
-          };
-        }
-        
+        dispatch(setUser({ user: mockUser }));
         return { data: mockUser };
       },
       providesTags: ['User'],
