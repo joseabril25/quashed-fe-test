@@ -5,11 +5,13 @@ import { Button } from './components/ui/Button'
 import { Chip } from './components/ui/Chip'
 import { Dropdown } from './components/ui/Dropdown'
 import { TexAarea } from './components/ui/TextArea'
+import { DatePicker } from './components/ui/DatePicker'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
   const [textareaValue, setTextareaValue] = useState('')
   const [dropdownValue, setDropdownValue] = useState('')
+  const [dateValue, setDateValue] = useState<Date | null>(null)
   
   const dropdownOptions = [
     { value: 'option1', label: 'Option 1' },
@@ -26,7 +28,7 @@ function App() {
         {/* Form Component Examples */}
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-4">Form Components</h2>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-4 gap-6">
             {/* Input Examples */}
             <div>
               <h3 className="text-lg font-medium mb-4">Input Component</h3>
@@ -121,6 +123,38 @@ function App() {
                     options={dropdownOptions}
                     disabled
                     placeholder="Select an option"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* DatePicker Examples */}
+            <div>
+              <h3 className="text-lg font-medium mb-4">DatePicker Component</h3>
+              <div className="space-y-4">
+                <div>
+                  <DatePicker 
+                    label="Default DatePicker"
+                    value={dateValue}
+                    onChange={setDateValue}
+                    placeholder="Select a date"
+                  />
+                </div>
+                
+                <div>
+                  <DatePicker 
+                    label="Error DatePicker"
+                    error
+                    errorMessage="Please select a date"
+                    placeholder="Select a date"
+                  />
+                </div>
+                
+                <div>
+                  <DatePicker 
+                    label="Disabled DatePicker"
+                    disabled
+                    placeholder="Select a date"
                   />
                 </div>
               </div>

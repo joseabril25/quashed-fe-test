@@ -13,7 +13,7 @@ export const Input = ({ label, error, errorMessage, className = '', ref, ...prop
     
     return (
       <div className="inline-block">
-        <label className="block text-sm font-normal text-[rgb(var(--color-neutral))] mb-2">{label}</label>
+        <label>{label}</label>
         <input
           ref={ref}
           className={`${stateStyles[currentState]} ${className}`}

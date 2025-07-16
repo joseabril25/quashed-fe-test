@@ -58,12 +58,12 @@ export const Dropdown = ({
   
   return (
     <div className="inline-block" ref={dropdownRef}>
-      <label className="block text-sm font-normal text-[rgb(var(--color-neutral))] mb-2">{label}</label>
+      <label>{label}</label>
       <div className="relative">
         <button
           type="button"
           className={
-            `w-[188px] h-10 px-3 pr-8 text-left text-sm border transition-all duration-200 outline-none bg-white flex items-center justify-between 
+            `w-[188px] h-10 px-3 pr-8 text-left text-sm border border-[rgb(var(--color-border))] transition-all duration-200 outline-none bg-white flex items-center justify-between 
             ${stateStyles[currentState]} ${!disabled ? 'cursor-pointer' : ''}`
           }
           onClick={() => !disabled && setIsOpen(!isOpen)}
