@@ -15,10 +15,10 @@ export const Chip = ({ label, size = 'sm', variant = 'default' }: ChipProps) => 
   };
   
   const variantStyles = {
-    default: 'border border-[rgb(var(--color-neutral))] hover:border-[rgb(var(--color-primary))] hover:text-[rgb(var(--color-primary))]',
+    default: 'border border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-primary))] hover:text-[rgb(var(--color-primary))]',
     selected: 'border border-[rgb(var(--color-primary))] bg-[rgb(var(--color-primary))] text-white',
     warning: 'border border-[rgb(var(--color-warning))] bg-[rgb(var(--color-warning))]',
-    disabled: 'text-[rgba(149,153,169,1)]' // no border, no background
+    disabled: 'text-[rgba(var(--color-border))]' // no border, no background
   };
   
   return (

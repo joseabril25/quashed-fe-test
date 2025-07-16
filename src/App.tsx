@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+
 import { Input } from './components/ui/Input'
 import { Button } from './components/ui/Button'
 import { Chip } from './components/ui/Chip'
@@ -23,13 +23,12 @@ function App() {
               <h3 className="text-lg font-medium mb-4">Input Component</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Default Input</label>
-                  <Input placeholder="Enter value" />
+                  <Input label="Default Input" placeholder="Enter value" />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Input with Value</label>
                   <Input 
+                    label="Input with Value"
                     placeholder="Enter value" 
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
@@ -37,8 +36,8 @@ function App() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Error State</label>
                   <Input 
+                    label="Error Input"
                     placeholder="Enter value" 
                     error
                     errorMessage="This field is required"
@@ -46,8 +45,7 @@ function App() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Disabled Input</label>
-                  <Input placeholder="Enter value" disabled />
+                  <Input label="Disabled Input" placeholder="Enter value" disabled />
                 </div>
               </div>
             </div>
@@ -57,13 +55,12 @@ function App() {
               <h3 className="text-lg font-medium mb-4">Textarea Component</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Default Textarea</label>
-                  <TexAarea placeholder="Enter your message..." />
+                  <TexAarea label="Default Textarea" placeholder="Enter your message..." />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Textarea with Value</label>
                   <TexAarea 
+                    label="Textarea with Value"
                     placeholder="Enter your message..." 
                     value={textareaValue}
                     onChange={(e) => setTextareaValue(e.target.value)}
@@ -71,8 +68,8 @@ function App() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Error State</label>
                   <TexAarea 
+                    label="Error Textarea"
                     placeholder="Enter your message..." 
                     error
                     errorMessage="This field is required"
@@ -80,8 +77,7 @@ function App() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Disabled Textarea</label>
-                  <TexAarea placeholder="Enter your message..." disabled />
+                  <TexAarea label="Disabled Textarea" placeholder="Enter your message..." disabled />
                 </div>
               </div>
             </div>
@@ -92,13 +88,22 @@ function App() {
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-4">Button Component</h2>
           <div className="space-y-4">
-            <div className="flex gap-4 items-center">
-              <Button>Primary</Button>
-              <Button disabled>Disabled</Button>
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Button Sizes</h3>
+              <div className="flex gap-4 items-center">
+                <Button size="sm">Small</Button>
+                <Button size="md">Medium</Button>
+                <Button size="lg">Large</Button>
+              </div>
             </div>
 
-            <div className='flex gap-4 items-center'>
-              <Button variant="tertiary">Tertiary</Button>
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Button Variants</h3>
+              <div className="flex gap-4 items-center">
+                <Button>Primary</Button>
+                <Button variant="tertiary">Tertiary</Button>
+                <Button disabled>Disabled</Button>
+              </div>
             </div>
 
             <div>

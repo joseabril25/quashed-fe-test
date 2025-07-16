@@ -11,6 +11,7 @@
     --color-mono: 3 25 52;
     --color-warning: 255 147 65;
     --color-border: 149 153 169;
+    --color-surface: 32 36 44
   }
 }
 
@@ -23,27 +24,29 @@
     padding: 0;
   }
   input {
-    width: 188px;
+    /* width: 188px; */
     height: 40px;
     padding: 8px 12px;
     font-size: 14px;
-    border: 1px solid rgba(149, 153, 169, 1);
+    border: 1px solid rgb(var(--color-border));
+    color: var(--color-border);
     transition: all 0.2s;
     outline: none;
     background-color: white;
+    color: var(--color-surface);
   }
 
   textarea {
-    width: 244px;
+    /* width: 244px; */
     height: 120px;
     padding: 8px 12px;
     font-size: 14px;
-    border: 1px solid rgba(149, 153, 169, 1);
+    border: 1px solid rgb(var(--color-border));
     transition: all 0.2s;
     outline: none;
     background-color: white;
+    color: var(--color-border);
     resize: none;
-    font-family: inherit;
   }
 
   h3 {
