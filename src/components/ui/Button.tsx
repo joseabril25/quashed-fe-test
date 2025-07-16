@@ -1,12 +1,14 @@
 import type { ButtonHTMLAttributes } from 'react';
+import { Icons } from '../Icons';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'tertiary';
   size?: 'sm' | 'md' | 'lg';
+  showArrow?: boolean;
 }
 
-export const Button = ({ variant = 'primary', size = 'md', className = '', children, ref, ...props }: ButtonProps & { ref?: React.Ref<HTMLButtonElement> }) => {
-    const baseStyles = 'text-base font-semibold weight-600 transition-all duration-200 outline-none';
+export const Button = ({ variant = 'primary', size = 'md', showArrow = false, className = '', children, ref, ...props }: ButtonProps & { ref?: React.Ref<HTMLButtonElement> }) => {
+    const baseStyles = 'text-base font-semibold weight-600 transition-all duration-200 outline-none flex items-center justify-center gap-2';
 
     const sizeStyles = {
       sm: 'px-4 py-2 h-8 min-w-[71px] text-sm',
@@ -22,6 +24,13 @@ export const Button = ({ variant = 'primary', size = 'md', className = '', child
         default: 'text-[rgb(var(--color-neutral))] bg-transparent hover:text-[rgb(var(--color-primary))] active:text-[rgb(var(--color-primary-dark))]',
       }
     };
+
+    const getArrowColor = () => {
+      if (props.disabled) {
+        return 'rgb(var(--color-neutral))';
+      }
+      return variant === 'primary' ? '#ffffff' : 'rgb(var(--color-neutral))';
+    };
     
     return (
       <button
@@ -30,6 +39,14 @@ export const Button = ({ variant = 'primary', size = 'md', className = '', child
         {...props}
       >
         {children}
+        {showArrow && (
+          <Icons 
+            name="arrow-right" 
+            color={getArrowColor()}
+            width={20} 
+            height={20} 
+          />
+        )}
       </button>
     );
 };

@@ -6,6 +6,7 @@ import { Chip } from './components/ui/Chip'
 import { Dropdown } from './components/ui/Dropdown'
 import { TexAarea } from './components/ui/TextArea'
 import { DatePicker } from './components/ui/DatePicker'
+import { PriceBox } from './components/PriceBox'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -162,6 +163,27 @@ function App() {
           </div>
         </div>
 
+        {/* PriceBox Component Examples */}
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4">PriceBox Component</h2>
+          <div className="grid grid-cols-3 gap-6">
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Monthly Price</h3>
+              <PriceBox price={29.99} perMonth="month" timestamp={Date.now() - 13 * 60 * 1000} />
+            </div>
+            
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Monthly Price (Shortened)</h3>
+              <PriceBox price={49.99} perMonth="month" shortenedMonth />
+            </div>
+            
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Yearly Price</h3>
+              <PriceBox price={299.99} perMonth="year" timestamp={Date.now() - 30000} />
+            </div>
+          </div>
+        </div>
+
         {/* Button Component Examples */}
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-4">Button Component</h2>
@@ -181,6 +203,15 @@ function App() {
                 <Button>Primary</Button>
                 <Button variant="tertiary">Tertiary</Button>
                 <Button disabled>Disabled</Button>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Buttons with Arrow</h3>
+              <div className="flex gap-4 items-center">
+                <Button showArrow>Primary with Arrow</Button>
+                <Button variant="tertiary" showArrow>Tertiary with Arrow</Button>
+                <Button disabled showArrow>Disabled with Arrow</Button>
               </div>
             </div>
 
