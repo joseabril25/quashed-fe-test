@@ -1,5 +1,6 @@
 import type React from "react"
 import { useGetMeQuery } from "./store/api/userApi"
+import { Navbar } from "./components/Navbar";
 
 export const Layout = ({children}: {children: React.ReactNode}) => {
   const { isLoading } = useGetMeQuery();
@@ -10,6 +11,7 @@ export const Layout = ({children}: {children: React.ReactNode}) => {
 
   return (
     <>
+      <Navbar />
       {children}
     </>
   )

@@ -1,7 +1,6 @@
 import { forwardRef } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { getFormStateStyles, getFormState } from '../../utils/formStyles';
-import "react-datepicker/dist/react-datepicker.css";
 
 interface DatePickerProps {
   label: string;

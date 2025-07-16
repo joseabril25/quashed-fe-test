@@ -1,0 +1,22 @@
+import { IconAccount } from './icon-account';
+import { IconMenu } from './icon-menu';
+
+
+interface Props {
+  name: string;
+  active?: boolean;
+  width?: number;
+  height?: number;
+  color?: string;
+}
+
+export const Icons = ({ name, active, width, height, color }: Props) => {
+  switch (name) {
+    case 'menu':
+      return <IconMenu active={active || false} color={color} width={width} height={height} />;
+    case 'account':
+      return <IconAccount active={active || false} color={color} width={width} height={height} />;
+    default:
+      return null;
+  }
+};

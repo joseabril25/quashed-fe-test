@@ -1,0 +1,26 @@
+// import { useState } from "react"
+import logo from '../assets/logo.png'
+import { Icons } from './Icons'
+
+
+export const Navbar = () => {
+
+  return (
+    <nav className="bg-[rgb(var(--color-primary))] px-6 py-4 sticky top-0 z-50">
+      <div className="max-w-7xl h-[64px] mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className='cursor-pointer'>
+            <Icons name="menu" color='#fff' width={32} height={32} />
+          </div>
+          <img src={logo} alt="Blork Logo" width={120} height={40} className="h-auto w-[160px] cursor-pointer" />
+        </div>
+
+        <div className="hidden md:block">
+          <div className="bg-white rounded-full p-2 flex items-center justify-center m-w-[32px] cursor-pointer">
+            <Icons name="account" color='rgb(var(--color-primary))' width={24} height={24} />
+          </div>
+        </div>
+      </div>
+    </nav>
+  )
+}
