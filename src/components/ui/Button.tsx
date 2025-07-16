@@ -1,11 +1,10 @@
-import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ variant = 'primary', className = '', children, ...props }, ref) => {
+export const Button = ({ variant = 'primary', className = '', children, ref, ...props }: ButtonProps & { ref?: React.Ref<HTMLButtonElement> }) => {
     const baseStyles = 'w-[120px] h-12 font-medium text-white rounded transition-all duration-200 outline-none';
     
     const variantStyles = {
@@ -26,7 +25,4 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ variant = 'p
         {children}
       </button>
     );
-  }
-);
-
-Button.displayName = 'Button';
+};

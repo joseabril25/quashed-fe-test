@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import type { InputHTMLAttributes } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -6,7 +5,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(({ error, errorMessage, className = '', ...props }, ref) => {    
+export const Input = ({ error, errorMessage, className = '', ref, ...props }: InputProps & { ref?: React.Ref<HTMLInputElement> }) => {    
     const stateStyles = {
       default: 'border-gray-300 bg-white placeholder-gray-500 hover:border-[rgb(var(--color-primary))]-100 focus:border-[rgb(var(--color-primary))]-100',
       error: 'border-[rgb(var(--color-error))] bg-white placeholder-gray-500 hover:border-[rgb(var(--color-error))]',
@@ -27,7 +26,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({ error, errorMes
         )}
       </div>
     );
-  }
-);
-
-Input.displayName = 'Input';
+};
