@@ -3,21 +3,30 @@ import { useState } from 'react'
 import { Input } from './components/ui/Input'
 import { Button } from './components/ui/Button'
 import { Chip } from './components/ui/Chip'
-import { TexAarea } from './components/ui/Textarea'
+import { Dropdown } from './components/ui/Dropdown'
+import { TexAarea } from './components/ui/TextArea'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
   const [textareaValue, setTextareaValue] = useState('')
+  const [dropdownValue, setDropdownValue] = useState('')
+  
+  const dropdownOptions = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+    { value: 'option4', label: 'Option 4' },
+  ]
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold text-gray-900">Components</h1>
         
-        {/* Input & Textarea Component Examples */}
+        {/* Form Component Examples */}
         <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Input & Textarea Components</h2>
-          <div className="grid grid-cols-2 gap-8">
+          <h2 className="text-xl font-semibold mb-4">Form Components</h2>
+          <div className="grid grid-cols-3 gap-8">
             {/* Input Examples */}
             <div>
               <h3 className="text-lg font-medium mb-4">Input Component</h3>
@@ -78,6 +87,41 @@ function App() {
                 
                 <div>
                   <TexAarea label="Disabled Textarea" placeholder="Enter your message..." disabled />
+                </div>
+              </div>
+            </div>
+            
+            {/* Dropdown Examples */}
+            <div>
+              <h3 className="text-lg font-medium mb-4">Dropdown Component</h3>
+              <div className="space-y-4">
+                <div>
+                  <Dropdown 
+                    label="Default Dropdown"
+                    options={dropdownOptions}
+                    value={dropdownValue}
+                    onChange={setDropdownValue}
+                    placeholder="Select an option"
+                  />
+                </div>
+                
+                <div>
+                  <Dropdown 
+                    label="Error Dropdown"
+                    options={dropdownOptions}
+                    error
+                    errorMessage="Please select an option"
+                    placeholder="Select an option"
+                  />
+                </div>
+                
+                <div>
+                  <Dropdown 
+                    label="Disabled Dropdown"
+                    options={dropdownOptions}
+                    disabled
+                    placeholder="Select an option"
+                  />
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import type { TextareaHTMLAttributes } from 'react';
+import { getFormStateStyles, getFormState } from '../../utils/formStyles';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
@@ -7,13 +8,8 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 export const TexAarea = ({ label, error, errorMessage, className = '', ref, ...props }: TextareaProps & { ref?: React.Ref<HTMLTextAreaElement> }) => {
-  const stateStyles = {
-    default: 'placeholder-[rgb(var(--color-border))] hover:border-[rgb(var(--color-primary))] focus:border-[rgb(var(--color-primary))] focus:outline-none',
-    error: 'border-[rgb(var(--color-error))] bg-white hover:border-[rgb(var(--color-error))]',
-    disabled: 'border-gray-200 bg-gray-50 placeholder-gray-300 cursor-not-allowed opacity-60 focus:none'
-  };
-  
-  const currentState = props.disabled ? 'disabled' : error ? 'error' : 'default';
+  const stateStyles = getFormStateStyles();
+  const currentState = getFormState(props.disabled, error);
   
   return (
     <div className="inline-block">

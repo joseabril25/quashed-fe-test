@@ -11,7 +11,8 @@
     --color-mono: 3 25 52;
     --color-warning: 255 147 65;
     --color-border: 149 153 169;
-    --color-surface: 32 36 44
+    --color-surface: 32 36 44;
+    --color-bg-disabled: 232 233 237;
   }
 }
 
@@ -29,11 +30,15 @@
     padding: 8px 12px;
     font-size: 14px;
     border: 1px solid rgb(var(--color-border));
-    color: var(--color-border);
     transition: all 0.2s;
     outline: none;
     background-color: white;
-    color: var(--color-surface);
+    color: rgb(var(--color-surface));
+  }
+  
+  input:focus {
+    outline: none;
+    box-shadow: none;
   }
 
   textarea {
@@ -45,8 +50,19 @@
     transition: all 0.2s;
     outline: none;
     background-color: white;
-    color: var(--color-border);
+    color: rgb(var(--color-surface));
     resize: none;
+  }
+  
+  textarea:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  /* Dropdown button styles - inherits from input styles */
+  button[type="button"].dropdown-trigger {
+    font-family: inherit;
+    border-radius: 0;
   }
 
   h3 {

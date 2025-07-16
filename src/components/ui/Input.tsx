@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from 'react';
+import { getFormStateStyles, getFormState } from '../../utils/formStyles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -7,13 +8,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = ({ label, error, errorMessage, className = '', ref, ...props }: InputProps & { ref?: React.Ref<HTMLInputElement> }) => {
-    const stateStyles = {
-      default: 'placeholder-[rgb(var(--color-border))] hover:border-[rgb(var(--color-primary))] focus:border-[rgb(var(--color-primary))] focus:outline-none',
-      error: 'border-[rgb(var(--color-error))] bg-white hover:border-[rgb(var(--color-error))]',
-      disabled: 'border-gray-200 bg-gray-50 placeholder-gray-300 cursor-not-allowed opacity-60 focus:none'
-    };
-    
-    const currentState = props.disabled ? 'disabled' : error ? 'error' : 'default';
+    const stateStyles = getFormStateStyles();
+    const currentState = getFormState(props.disabled, error);
     
     return (
       <div className="inline-block">
