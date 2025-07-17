@@ -195,4 +195,9 @@
   td:hover {
     background-color: rgb(var(--color-bg-table-hover) );
   }
+
+  /* No hover effect for first column (provider column) */
+  td:first-child:hover {
+    background-color: white;
+  }
 }
