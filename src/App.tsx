@@ -7,6 +7,12 @@ import { Dropdown } from './components/ui/Dropdown'
 import { TexAarea } from './components/ui/TextArea'
 import { DatePicker } from './components/ui/DatePicker'
 import { PriceBox } from './components/PriceBox'
+import { Card } from './components/ui/Card'
+
+import cloudid from './assets/images/cloudid.png'
+import pronete from './assets/images/pronete.png'
+import tebiobio from './assets/images/tebiobio.png'
+
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -246,6 +252,35 @@ function App() {
                 <Chip label="Disabled" size="lg" variant="disabled" />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Card Component Examples */}
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-4">Card Component</h2>
+          <div className="flex gap-6 flex-wrap">
+            <Card 
+              name="Cloudid"
+              logo={cloudid}
+              price={106.88}
+              subtext='Best cloud storage solution'
+              perMonth="month"
+              shortenedMonth
+              timestamp={Date.now() - 13 * 60 * 1000}
+              onGetStarted={() => console.log('Get Started clicked')}
+            />
+            
+            <Card 
+              name="Pronete"
+              logo={pronete}
+              price={89.99}
+              subtext='Unlimited data for your convinience'
+              perMonth="month"
+              shortenedMonth
+              timestamp={Date.now() - 2 * 60 * 60 * 1000}
+              onGetStarted={() => console.log('Get Started clicked')}
+              bestDeal
+            />
           </div>
         </div>
       </div>
