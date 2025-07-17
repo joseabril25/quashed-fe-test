@@ -1,9 +1,11 @@
 import type React from "react"
 import { useGetMeQuery } from "./store/api/userApi"
 import { Navbar } from "./components/Navbar";
+import { useAppSelector } from "./store/hooks";
 
 export const Layout = ({children}: {children: React.ReactNode}) => {
   const { isLoading } = useGetMeQuery();
+  const { isModalOpen } = useAppSelector((state) => state.app);
 
   if (isLoading) {
     return (
@@ -16,9 +18,9 @@ export const Layout = ({children}: {children: React.ReactNode}) => {
   }
 
   return (
-    <>
+    <div className={`${isModalOpen && 'blur-md'}`}>
       <Navbar />
       {children}
-    </>
+    </div>
   )
 }

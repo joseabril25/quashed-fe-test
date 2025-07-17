@@ -6,15 +6,16 @@ import type { Provider } from '../types/apiTypes';
 interface TableColumn {
   key: string;
   label: string;
-  width?: number;
   render: (provider: Provider, index: number) => React.ReactNode;
+  width?: number;
 }
 
 interface ProviderTableProps {
   providers: Provider[];
+  onClickProvider: (provider: Provider) => void;
 }
 
-export const ProviderTable = ({ providers }: ProviderTableProps) => {
+export const ProviderTable = ({ providers, onClickProvider }: ProviderTableProps) => {
   const getIcon = (isTrue: boolean) => {
     return (
       <Icons name={isTrue ? 'check' : 'close'} width={32} height={32} color='rgb(var(--color-mono))' />
@@ -49,7 +50,7 @@ export const ProviderTable = ({ providers }: ProviderTableProps) => {
           perMonth="month"
           shortenedMonth
           timestamp={provider.createdAt ? new Date(provider.createdAt).getTime() : undefined}
-          onClick={() => console.log(`Selected provider: ${provider.name}`)}
+          onClick={() => onClickProvider(provider)}
           bestDeal={index === 1} // Make second provider the best deal
         />
       )
