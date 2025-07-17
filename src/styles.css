@@ -13,6 +13,9 @@
     --color-border: 149 153 169;
     --color-surface: 32 36 44;
     --color-bg-disabled: 232 233 237;
+    --color-bg-table: 240 241 242;
+    --color-bg-table-hover: 205 227 255;
+    --color-bg-body: 232 232 237;
   }
 
   body {
@@ -21,6 +24,7 @@
     color: var(--color-mono);
     margin: 0;
     padding: 0;
+    background-color: rgb(var(--color-bg-body));
   }
   input {
     /* width: 188px; */
@@ -154,5 +158,41 @@
     font-style: bold;
     font-size: 20px;
     color: var(--color-mono);
+  }
+
+  /* Table styles */
+  th {
+    min-width: 200px;
+    min-height: 72px;
+    padding: 16px 24px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(var(--color-mono));
+    background-color: rgb(var(--color-bg-table));
+    border-right: 1px solid rgb(var(--color-border));
+    border-bottom: 1px solid rgb(var(--color-border));
+  }
+
+  td {
+    min-width: 200px;
+    min-height: 204px;
+    padding: 24px;
+    vertical-align: top;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(var(--color-mono));
+    border-right: 1px solid rgb(var(--color-border));
+    border-bottom: 1px solid rgb(var(--color-border));
+    background-color: white;
+    vertical-align: bottom;
+  }
+
+  td:nth-child(even) {
+    background-color: rgb(var(--color-bg-table)); 
+  }
+
+  td:hover {
+    background-color: rgb(var(--color-bg-table-hover) );
   }
 }

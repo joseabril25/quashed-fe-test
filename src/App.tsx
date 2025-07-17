@@ -1,291 +1,123 @@
-import { useState } from 'react'
-
-import { Input } from './components/ui/Input'
-import { Button } from './components/ui/Button'
-import { Chip } from './components/ui/Chip'
-import { Dropdown } from './components/ui/Dropdown'
-import { TexAarea } from './components/ui/TextArea'
-import { DatePicker } from './components/ui/DatePicker'
-import { PriceBox } from './components/PriceBox'
-import { Card } from './components/ui/Card'
-
-import cloudid from './assets/images/cloudid.png'
-import pronete from './assets/images/pronete.png'
-import tebiobio from './assets/images/tebiobio.png'
-
+import { Navbar } from './components/Navbar';
+import { PriceBox } from './components/PriceBox';
+import { Card } from './components/ui/Card';
+import { useGetProvidersQuery } from './store/api/providersApi';
 
 function App() {
-  const [inputValue, setInputValue] = useState('')
-  const [textareaValue, setTextareaValue] = useState('')
-  const [dropdownValue, setDropdownValue] = useState('')
-  const [dateValue, setDateValue] = useState<Date | null>(null)
-  
-  const dropdownOptions = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-    { value: 'option4', label: 'Option 4' },
-  ]
+  const { data: providers, isLoading, error } = useGetProvidersQuery();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="flex items-center justify-center h-96">
+          <p className="text-lg text-gray-600">Loading providers...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex items-center justify-center h-96">
+          <p className="text-lg text-red-600">Error loading providers</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <h1 className="text-3xl font-bold text-gray-900">Components</h1>
-        
-        {/* Form Component Examples */}
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Form Components</h2>
-          <div className="grid grid-cols-4 gap-6">
-            {/* Input Examples */}
-            <div>
-              <h3 className="text-lg font-medium mb-4">Input Component</h3>
-              <div className="space-y-4">
-                <div>
-                  <Input label="Default Input" placeholder="Enter value" />
-                </div>
-                
-                <div>
-                  <Input 
-                    label="Input with Value"
-                    placeholder="Enter value" 
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                  />
-                </div>
-                
-                <div>
-                  <Input 
-                    label="Error Input"
-                    placeholder="Enter value" 
-                    error
-                    errorMessage="This field is required"
-                  />
-                </div>
-                
-                <div>
-                  <Input label="Disabled Input" placeholder="Enter value" disabled />
-                </div>
-              </div>
-            </div>
-
-            {/* Textarea Examples */}
-            <div>
-              <h3 className="text-lg font-medium mb-4">Textarea Component</h3>
-              <div className="space-y-4">
-                <div>
-                  <TexAarea label="Default Textarea" placeholder="Enter your message..." />
-                </div>
-                
-                <div>
-                  <TexAarea 
-                    label="Textarea with Value"
-                    placeholder="Enter your message..." 
-                    value={textareaValue}
-                    onChange={(e) => setTextareaValue(e.target.value)}
-                  />
-                </div>
-                
-                <div>
-                  <TexAarea 
-                    label="Error Textarea"
-                    placeholder="Enter your message..." 
-                    error
-                    errorMessage="This field is required"
-                  />
-                </div>
-                
-                <div>
-                  <TexAarea label="Disabled Textarea" placeholder="Enter your message..." disabled />
-                </div>
-              </div>
-            </div>
-            
-            {/* Dropdown Examples */}
-            <div>
-              <h3 className="text-lg font-medium mb-4">Dropdown Component</h3>
-              <div className="space-y-4">
-                <div>
-                  <Dropdown 
-                    label="Default Dropdown"
-                    options={dropdownOptions}
-                    value={dropdownValue}
-                    onChange={setDropdownValue}
-                    placeholder="Select an option"
-                  />
-                </div>
-                
-                <div>
-                  <Dropdown 
-                    label="Error Dropdown"
-                    options={dropdownOptions}
-                    error
-                    errorMessage="Please select an option"
-                    placeholder="Select an option"
-                  />
-                </div>
-                
-                <div>
-                  <Dropdown 
-                    label="Disabled Dropdown"
-                    options={dropdownOptions}
-                    disabled
-                    placeholder="Select an option"
-                  />
-                </div>
-              </div>
-            </div>
-            
-            {/* DatePicker Examples */}
-            <div>
-              <h3 className="text-lg font-medium mb-4">DatePicker Component</h3>
-              <div className="space-y-4">
-                <div>
-                  <DatePicker 
-                    label="Default DatePicker"
-                    value={dateValue}
-                    onChange={setDateValue}
-                    placeholder="Select a date"
-                  />
-                </div>
-                
-                <div>
-                  <DatePicker 
-                    label="Error DatePicker"
-                    error
-                    errorMessage="Please select a date"
-                    placeholder="Select a date"
-                  />
-                </div>
-                
-                <div>
-                  <DatePicker 
-                    label="Disabled DatePicker"
-                    disabled
-                    placeholder="Select a date"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* PriceBox Component Examples */}
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">PriceBox Component</h2>
-          <div className="grid grid-cols-3 gap-6">
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Monthly Price</h3>
-              <PriceBox price={29.99} perMonth="month" timestamp={Date.now() - 13 * 60 * 1000} />
-            </div>
-            
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Monthly Price (Shortened)</h3>
-              <PriceBox price={49.99} perMonth="month" shortenedMonth />
-            </div>
-            
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Yearly Price</h3>
-              <PriceBox price={299.99} perMonth="year" timestamp={Date.now() - 30000} />
-            </div>
-          </div>
-        </div>
-
-        {/* Button Component Examples */}
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Button Component</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Button Sizes</h3>
-              <div className="flex gap-4 items-center">
-                <Button size="sm">Small</Button>
-                <Button size="md">Medium</Button>
-                <Button size="lg">Large</Button>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Button Variants</h3>
-              <div className="flex gap-4 items-center">
-                <Button>Primary</Button>
-                <Button variant="tertiary">Tertiary</Button>
-                <Button disabled>Disabled</Button>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Buttons with Arrow</h3>
-              <div className="flex gap-4 items-center">
-                <Button showArrow>Primary with Arrow</Button>
-                <Button variant="tertiary" showArrow>Tertiary with Arrow</Button>
-                <Button disabled showArrow>Disabled with Arrow</Button>
-              </div>
-            </div>
-
-            <div>
-              <p className="text-sm text-gray-600 mt-2">
-                Hover over buttons to see hover state, click to see pressed state
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Chip Component Examples */}
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Chip Component</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Small Chips</h3>
-              <div className="flex gap-2 items-center flex-wrap">
-                <Chip label="Default" size="sm" />
-                <Chip label="Selected" size="sm" variant="selected" />
-                <Chip label="Warning" size="sm" variant="warning" />
-                <Chip label="Disabled" size="sm" variant="disabled" />
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Large Chips</h3>
-              <div className="flex gap-2 items-center flex-wrap">
-                <Chip label="Default" size="lg" />
-                <Chip label="Selected" size="lg" variant="selected" />
-                <Chip label="Warning" size="lg" variant="warning" />
-                <Chip label="Disabled" size="lg" variant="disabled" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Card Component Examples */}
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Card Component</h2>
-          <div className="flex gap-6 flex-wrap">
-            <Card 
-              name="Cloudid"
-              logo={cloudid}
-              price={106.88}
-              subtext='Best cloud storage solution'
-              perMonth="month"
-              shortenedMonth
-              timestamp={Date.now() - 13 * 60 * 1000}
-              onGetStarted={() => console.log('Get Started clicked')}
-            />
-            
-            <Card 
-              name="Pronete"
-              logo={pronete}
-              price={89.99}
-              subtext='Unlimited data for your convinience'
-              perMonth="month"
-              shortenedMonth
-              timestamp={Date.now() - 2 * 60 * 60 * 1000}
-              onGetStarted={() => console.log('Get Started clicked')}
-              bestDeal
-            />
+    <div className="min-h-screen">
+      <div className="p-6">
+        <div className="max-w-full mx-auto">
+          {/* Horizontal scrollable table container */}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              {/* Table Headers */}
+              <thead>
+                <tr>
+                  <th className="min-w-[400px]">
+                    Provider
+                  </th>
+                  <th>Yearly Payment</th>
+                  <th>Data</th>
+                  <th>Roaming</th>
+                  <th>Firewall</th>
+                  <th>VPN</th>
+                  <th>24h Support</th>
+                  <th>Router</th>
+                </tr>
+              </thead>
+              
+              {/* Table Body */}
+              <tbody>
+                {providers?.map((provider, index) => {
+                  return (
+                    <tr key={provider.id}>
+                      {/* Provider Card Column */}
+                      <td className='bg-white w-[400px] min-h-[194px]'>
+                        <Card 
+                          name={provider.name}
+                          logo={provider.logo}
+                          price={provider.pricePerMonth}
+                          subtext={provider.slogan}
+                          perMonth="month"
+                          shortenedMonth
+                          timestamp={provider.createdAt ? new Date(provider.createdAt).getTime() : undefined}
+                          onGetStarted={() => console.log(`Get Started clicked for ${provider.name}`)}
+                          bestDeal={index === 1} // Make second provider the best deal
+                        />
+                      </td>
+                      
+                      {/* Yearly Payment Column */}
+                      <td>
+                        <PriceBox 
+                          price={provider.pricePerYear}
+                          perMonth="year"
+                          shortenedMonth={false}
+                        />
+                      </td>
+                      
+                      {/* Data Column */}
+                      <td>
+                        {provider.dataLimit}
+                      </td> 
+                      
+                      {/* Roaming Column */}
+                      <td>
+                        {provider.roaming ? provider.roamingLimit : 'No'}
+                      </td>
+                      
+                      {/* Firewall Column */}
+                      <td>
+                        {provider.firewall ? provider.firewallLimit : 'No'}
+                      </td>
+                      
+                      {/* VPN Column */}
+                      <td>
+                        {provider.vpn ? 'Yes' : 'No'}
+                      </td>
+                      
+                      {/* 24h Support Column */}
+                      <td>
+                        {provider.support ? provider.supportLimit : 'No'}
+                      </td>
+                      
+                      {/* Router Column */}
+                      <td>
+                        {provider.router ? `$${provider.routerPrice.toFixed(2)}` : 'No'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

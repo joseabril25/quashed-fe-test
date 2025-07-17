@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = ({ variant = 'primary', size = 'md', showArrow = false, className = '', children, ref, ...props }: ButtonProps & { ref?: React.Ref<HTMLButtonElement> }) => {
-    const baseStyles = 'text-base font-semibold weight-600 transition-all duration-200 outline-none flex items-center justify-center gap-2';
+    const baseStyles = 'text-base font-semibold weight-600 transition-all duration-200 outline-none flex items-center justify-center gap-2 cursor-pointer';
 
     const sizeStyles = {
       sm: 'px-4 py-2 h-8 min-w-[71px] text-sm',

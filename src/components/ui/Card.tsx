@@ -28,7 +28,7 @@ export const Card = ({
   bestDeal = false // Default to false if not provided
 }: CardProps) => {
   return (
-    <div className={`w-[400px] min-h-[194px] bg-white p-6  ${className}`}>
+    <div className={` bg-white ${className}`}>
       {/* Top row: Chip and Subtext */}
       <div className="flex justify-between items-start">
         <div>
