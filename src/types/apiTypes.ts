@@ -14,12 +14,12 @@ export interface Provider {
   pricePerYear: number
   dataLimit: string
   roaming: boolean
-  roamingLimit: string
+  roamingPrice: number
   firewall: boolean
-  firewallLimit: string
+  firewallPrice: number
   vpn: boolean
   support: boolean
-  supportLimit: string
+  supportPrice: number
   router: boolean
   routerPrice: number
   createdAt?: string

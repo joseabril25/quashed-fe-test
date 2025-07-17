@@ -10,7 +10,7 @@ interface CardProps {
   perMonth?: 'month' | 'year';
   shortenedMonth?: boolean;
   timestamp?: number;
-  onGetStarted?: () => void;
+  onClick?: () => void;
   className?: string;
   bestDeal?: boolean; // Optional prop to indicate if this is the best deal
 }
@@ -23,7 +23,7 @@ export const Card = ({
   perMonth = 'month', 
   shortenedMonth = true,
   timestamp,
-  onGetStarted,
+  onClick,
   className = '',
   bestDeal = false // Default to false if not provided
 }: CardProps) => {
@@ -63,7 +63,7 @@ export const Card = ({
         
         <Button 
           showArrow 
-          onClick={onGetStarted}
+          onClick={onClick}
           size="md"
         >
           Get Started

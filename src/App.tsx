@@ -1,10 +1,17 @@
+import { Icons } from './components/Icons';
 import { Navbar } from './components/Navbar';
 import { PriceBox } from './components/PriceBox';
 import { Card } from './components/ui/Card';
 import { useGetProvidersQuery } from './store/api/providersApi';
 
-function App() {
+const App = () => {
   const { data: providers, isLoading, error } = useGetProvidersQuery();
+
+  const getIcon = (isTrue: boolean) => {
+    return (
+      <Icons name={isTrue ? 'check' : 'close'} width={32} height={32} color='rgb(var(--color-mono))' />
+    );
+  }
 
   if (isLoading) {
     return (
@@ -65,7 +72,7 @@ function App() {
                           perMonth="month"
                           shortenedMonth
                           timestamp={provider.createdAt ? new Date(provider.createdAt).getTime() : undefined}
-                          onGetStarted={() => console.log(`Get Started clicked for ${provider.name}`)}
+                          onClick={() => console.log(`Selected provider: ${provider.name}`)}
                           bestDeal={index === 1} // Make second provider the best deal
                         />
                       </td>
@@ -86,27 +93,69 @@ function App() {
                       
                       {/* Roaming Column */}
                       <td>
-                        {provider.roaming ? provider.roamingLimit : 'No'}
+                        {
+                          provider.roamingPrice !== 0 ? (
+                            <PriceBox 
+                              price={provider.roamingPrice}
+                              perMonth="month"
+                              shortenedMonth={false}
+                              label='Gb'
+                            />
+                          ) : (
+                            getIcon(provider.roaming)
+                          )
+                        }
+                        {/* {provider.roaming ? provider.roamingLimit : 'No'} */}
                       </td>
                       
                       {/* Firewall Column */}
                       <td>
-                        {provider.firewall ? provider.firewallLimit : 'No'}
+                        {
+                          provider.firewallPrice !== 0 ? (
+                            <PriceBox 
+                              price={provider.firewallPrice}
+                              perMonth="month"
+                              shortenedMonth={false}
+                            />
+                          ) : (
+                            getIcon(provider.firewall)
+                          )
+                        }
                       </td>
                       
                       {/* VPN Column */}
                       <td>
-                        {provider.vpn ? 'Yes' : 'No'}
+                        {getIcon(provider.vpn)}
                       </td>
                       
                       {/* 24h Support Column */}
                       <td>
-                        {provider.support ? provider.supportLimit : 'No'}
+                        {
+                          provider.supportPrice !== 0 ? (
+                            <PriceBox 
+                              price={provider.supportPrice}
+                              perMonth="month"
+                              shortenedMonth={false}
+                            />
+                          ) : (
+                            getIcon(provider.support)
+                          )
+                        }
                       </td>
                       
                       {/* Router Column */}
                       <td>
-                        {provider.router ? `$${provider.routerPrice.toFixed(2)}` : 'No'}
+                        {
+                          provider.routerPrice !== 0 ? (
+                            <PriceBox 
+                              price={provider.routerPrice}
+                              perMonth="month"
+                              shortenedMonth={false}
+                            />
+                          ) : (
+                            getIcon(provider.router)
+                          )
+                        }
                       </td>
                     </tr>
                   );
