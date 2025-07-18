@@ -1,19 +1,20 @@
-import Modal from './components/Modal';
 import { Navbar } from './components/Navbar';
 import { ProviderTable } from './components/ProviderTable';
+import ProviderModal from './components/ProviderModal';
 import { useGetProvidersQuery } from './store/api/providersApi';
-import { useAppDispatch, useAppSelector } from './store/hooks';
-import { toggleModalStatus } from './store/slices/appSlice';
+import { useAppDispatch } from './store/hooks';
+import { selectProviderAndLoadData } from './store/slices/providersSlice';
 import type { Provider } from './types/apiTypes';
 
 const App = () => {
   const { data: providers, isLoading, error } = useGetProvidersQuery();
-  const { isModalOpen } = useAppSelector((state) => state.app);
-  const dispatch = useAppDispatch()
+
+  const dispatch = useAppDispatch();
 
   const onClickProvider = (provider: Provider) => {
-    console.log(`Selected provider: ${provider.name}`);
-    dispatch(toggleModalStatus({ isOpen: true }));
+    if (provider.id) {
+      dispatch(selectProviderAndLoadData(provider));
+    }
   }
 
   if (isLoading) {
@@ -46,12 +47,7 @@ const App = () => {
           </div>
         </div>
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => dispatch(toggleModalStatus({ isOpen: false }))}
-      >
-        <p>Your modal content goes here</p>
-      </Modal>
+      <ProviderModal />
     </>
   );
 };

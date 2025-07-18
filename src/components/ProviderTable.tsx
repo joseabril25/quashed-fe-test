@@ -118,8 +118,8 @@ export const ProviderTable = ({ providers, onClickProvider }: ProviderTableProps
         <tbody>
           {providers?.map((provider, index) => (
             <tr key={provider.id}>
-              {tableColumns.map((column) => (
-                <td key={`${provider.id}-${column.key}`}>
+              {tableColumns.map((column, _index) => (
+                <td key={`${provider.id}-${column.key}`} className={`${_index === 0 ? 'min-w-[400px] min-h-[194px]' : ''}`}>
                   {column.render(provider, index)}
                 </td>
               ))}
