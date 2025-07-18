@@ -98,7 +98,7 @@ export const ProviderTable = ({ providers, onClickProvider }: ProviderTableProps
   ];
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
       <table className="w-full border-collapse">
         {/* Table Headers */}
         <thead>
