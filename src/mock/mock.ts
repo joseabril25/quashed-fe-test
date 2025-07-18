@@ -12,7 +12,7 @@ export const mockProviders: Provider[] = [
   {
     id: '1',
     name: 'Cloudid',
-    logo: '/src/assets/images/cloudid.png',
+    logo: '/cloudid.png',
     slogan: 'Best cloud storage solution',
     pricePerMonth: 106.88,
     pricePerYear: 1189.99,
@@ -32,7 +32,7 @@ export const mockProviders: Provider[] = [
   {
     id: '2',
     name: 'Pronete',
-    logo: '/src/assets/images/pronete.png',
+    logo: '/pronete.png',
     slogan: 'Unlimited data for your convenience',
     pricePerMonth: 89.99,
     pricePerYear: 999.99,
@@ -52,7 +52,7 @@ export const mockProviders: Provider[] = [
   {
     id: '3',
     name: 'Tebiobio',
-    logo: '/src/assets/images/tebiobio.png',
+    logo: '/tebiobio.png',
     slogan: 'Enterprise-grade connectivity',
     pricePerMonth: 129.99,
     pricePerYear: 1439.99,

@@ -50,6 +50,7 @@ A comprehensive React application demonstrating a provider selection and purchas
 
 ## 📦 Installation
 
+### Using Yarn (Recommended)
 ```bash
 # Clone the repository
 git clone <[repository-url](https://github.com/joseabril25/quashed-fe-test.git)>
@@ -62,29 +63,81 @@ yarn install
 yarn msw init public/
 ```
 
+### Using npm
+```bash
+# Clone the repository
+git clone <[repository-url](https://github.com/joseabril25/quashed-fe-test.git)>
+cd quashed-test
+
+# Remove yarn.lock to avoid conflicts
+rm yarn.lock
+
+# Install dependencies
+npm install
+
+# Initialize MSW
+npx msw init public/
+```
+
+### Using pnpm
+```bash
+# Clone the repository
+git clone <[repository-url](https://github.com/joseabril25/quashed-fe-test.git)>
+cd quashed-test
+
+# Remove yarn.lock to avoid conflicts
+rm yarn.lock
+
+# Install dependencies
+pnpm install
+
+# Initialize MSW
+pnpm dlx msw init public/
+```
+
+⚠️ **Important**: This project was developed with Yarn. While it should work with npm/pnpm, you may encounter minor dependency version differences due to different lock files. If you experience issues, please use Yarn for the most consistent experience.
+
 ## 🚦 Running the Application
 
 ### Development Server
 ```bash
-# Start development server
+# Using Yarn
 yarn dev
+
+# Using npm
+npm run dev
+
+# Using pnpm
+pnpm dev
 
 # Server will run on http://localhost:5173
 ```
 
 ### Build for Production
 ```bash
-# Build the application
+# Using Yarn
 yarn build
-
-# Preview production build
 yarn preview
+
+# Using npm
+npm run build
+npm run preview
+
+# Using pnpm
+pnpm build
+pnpm preview
 ```
 
 ### Linting
 ```bash
-# Run ESLint
+# Using Yarn
 yarn lint
+
+# Using npm
+npm run lint
+
+# Using pnpm
+pnpm lint
 ```
 
 ## 🏗 Project Structure
@@ -204,6 +257,45 @@ The application is structured for easy testing:
 - **Error boundary** implementation
 - **Loading states** optimization
 - **Testing suite** (Jest, React Testing Library, Cypress)
+
+## 🚨 Troubleshooting
+
+### Package Manager Issues
+
+**Problem**: MSW not working after switching package managers
+```bash
+# Solution: Re-initialize MSW
+rm -rf public/mockServiceWorker.js
+npx msw init public/  # or yarn msw init public/ or pnpm dlx msw init public/
+```
+
+**Problem**: Dependency version conflicts
+```bash
+# Solution: Clear cache and reinstall
+rm -rf node_modules
+rm package-lock.json  # or yarn.lock or pnpm-lock.yaml
+npm install  # or yarn install or pnpm install
+```
+
+**Problem**: Different behavior between package managers
+- Yarn uses `yarn.lock` for deterministic builds
+- npm uses `package-lock.json` with different resolution algorithm
+- pnpm uses `pnpm-lock.yaml` with efficient disk usage
+
+**Recommendation**: Stick with Yarn for the most consistent experience as this project was developed and tested with Yarn.
+
+### Common Issues
+
+**Build fails with TypeScript errors**: Run `yarn lint` to check for type issues
+
+**MSW requests not being intercepted**: Check browser console for MSW registration messages
+
+**Styles not loading**: Ensure Tailwind CSS is properly configured in `vite.config.ts`
+
+**Images not showing in production build**: 
+- Provider logos are served from the `public/` folder
+- Paths in mock data use `/image.png` format (not `/src/assets/`)
+- Static imports in components work correctly for bundled assets
 
 ## 📄 License
 
