@@ -18,7 +18,7 @@ export const Button = ({ variant = 'primary', size = 'md', showArrow = false, cl
 
     const variantStyles = {
       primary: {
-        default: 'text-white bg-[rgb(var(--color-primary))] hover:bg-[rgb(var(--color-primary-light))] hover:shadow-[2px_2px_2px_0px_rgba(0,0,0,0.2)] active:bg-[rgb(var(--color-primary-dark))] active:shadow-none disabled:bg-[#E8E9ED] disabled:text-gray-400 disabled:shadow-none disabled:cursor-not-allowed',
+        default: 'text-white bg-[rgb(var(--color-primary))] hover:bg-[rgb(var(--color-primary-light))] hover:shadow-[2px_2px_2px_0px_rgba(0,0,0,0.2)] active:bg-[rgb(var(--color-primary-dark))] active:shadow-none disabled:bg-[#E8E9ED] disabled:text-[rgb(var(--color-border))] disabled:shadow-none disabled:cursor-not-allowed',
       },
       tertiary: {
         default: 'text-[rgb(var(--color-neutral))] bg-transparent hover:text-[rgb(var(--color-primary))] active:text-[rgb(var(--color-primary-dark))]',
@@ -27,7 +27,7 @@ export const Button = ({ variant = 'primary', size = 'md', showArrow = false, cl
 
     const getArrowColor = () => {
       if (props.disabled) {
-        return 'rgb(var(--color-neutral))';
+        return 'rgb(var(--color-border))';
       }
       return variant === 'primary' ? '#ffffff' : 'rgb(var(--color-neutral))';
     };

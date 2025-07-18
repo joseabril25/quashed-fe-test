@@ -1,7 +1,8 @@
 import { Icons } from './Icons';
-import { PriceBox } from './PriceBox';
+
 import { Card } from './ui/Card';
 import type { Provider } from '../types/apiTypes';
+import { PriceBox } from './ui/PriceBox';
 
 interface TableColumn {
   key: string;

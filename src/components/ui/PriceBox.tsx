@@ -1,4 +1,6 @@
-import { getTimeAgo } from '../utils/timeUtils';
+import { getTimeAgo } from "../../utils/dateUtils";
+
+
 
 interface PriceBoxProps {
   price: number;

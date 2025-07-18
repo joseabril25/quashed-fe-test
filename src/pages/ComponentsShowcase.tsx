@@ -1,17 +1,17 @@
 import { useState } from 'react'
 
-import { Input } from './components/ui/Input'
-import { Button } from './components/ui/Button'
-import { Chip } from './components/ui/Chip'
-import { Dropdown } from './components/ui/Dropdown'
-import { TexAarea } from './components/ui/TextArea'
-import { DatePicker } from './components/ui/DatePicker'
-import { PriceBox } from './components/PriceBox'
-import { Card } from './components/ui/Card'
 
-import cloudid from './assets/images/cloudid.png'
-import pronete from './assets/images/pronete.png'
-import tebiobio from './assets/images/tebiobio.png'
+import cloudid from '../assets/images/cloudid.png'
+import pronete from '../assets/images/pronete.png'
+
+import { Button } from '../components/ui/Button'
+import { Card } from '../components/ui/Card'
+import { Chip } from '../components/ui/Chip'
+import { Dropdown } from '../components/ui/Dropdown'
+import { Input } from '../components/ui/Input'
+import { PriceBox } from '../components/ui/PriceBox'
+import { TextAarea } from '../components/ui/TextArea'
+import { DatePicker } from '../components/ui/DatePicker'
 
 
 function App() {
@@ -73,11 +73,11 @@ function App() {
               <h3 className="text-lg font-medium mb-4">Textarea Component</h3>
               <div className="space-y-4">
                 <div>
-                  <TexAarea label="Default Textarea" placeholder="Enter your message..." />
+                  <TextAarea label="Default Textarea" placeholder="Enter your message..." />
                 </div>
                 
                 <div>
-                  <TexAarea 
+                  <TextAarea 
                     label="Textarea with Value"
                     placeholder="Enter your message..." 
                     value={textareaValue}
@@ -86,7 +86,7 @@ function App() {
                 </div>
                 
                 <div>
-                  <TexAarea 
+                  <TextAarea 
                     label="Error Textarea"
                     placeholder="Enter your message..." 
                     error
@@ -95,7 +95,7 @@ function App() {
                 </div>
                 
                 <div>
-                  <TexAarea label="Disabled Textarea" placeholder="Enter your message..." disabled />
+                  <TextAarea label="Disabled Textarea" placeholder="Enter your message..." disabled />
                 </div>
               </div>
             </div>
@@ -267,7 +267,6 @@ function App() {
               perMonth="month"
               shortenedMonth
               timestamp={Date.now() - 13 * 60 * 1000}
-              onGetStarted={() => console.log('Get Started clicked')}
             />
             
             <Card 
@@ -278,7 +277,6 @@ function App() {
               perMonth="month"
               shortenedMonth
               timestamp={Date.now() - 2 * 60 * 60 * 1000}
-              onGetStarted={() => console.log('Get Started clicked')}
               bestDeal
             />
           </div>

@@ -61,3 +61,28 @@ export const dateToTimestamp = (date: Date | null): number | null => {
 export const isValidTimestamp = (timestamp: any): timestamp is number => {
   return typeof timestamp === 'number' && !isNaN(timestamp) && timestamp > 0;
 };
+
+/**
+ * Get the time ago from a timestamp
+ * @param timestamp - Unix timestamp in milliseconds
+ * @returns A human-readable string indicating how long ago the timestamp was
+ */
+export const getTimeAgo = (timestamp: number): string => {
+  const now = Date.now();
+  const diff = now - timestamp;
+  
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  
+  if (days > 0) {
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  } else if (hours > 0) {
+    return `${hours} hr${hours > 1 ? 's' : ''} ago`;
+  } else if (minutes > 0) {
+    return `${minutes} min ago`;
+  } else {
+    return 'Just now';
+  }
+};

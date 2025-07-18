@@ -1,6 +1,6 @@
 import { Button } from './Button';
-import { PriceBox } from '../PriceBox';
 import { Chip } from './Chip';
+import { PriceBox } from './PriceBox';
 
 interface CardProps {
   name: string;
@@ -36,7 +36,7 @@ export const Card = ({
             <Chip 
               label="Cheapeast" 
               size="sm"
-              variant='selected'
+              variant='default'
             />
           )}
         </div>

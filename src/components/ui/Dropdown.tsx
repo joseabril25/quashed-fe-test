@@ -90,7 +90,7 @@ export const Dropdown = ({
               <button
                 key={option.value}
                 type="button"
-                className="w-full h-10 px-3 text-left text-sm text-[rgb(var(--color-mono))] hover:bg-[rgba(205,227,255,1)] transition-colors"
+                className="w-full h-10 px-3 text-left text-sm text-[rgb(var(--color-mono))] hover:bg-[rgba(205,227,255,1)] transition-colors cursor-pointer"
                 onClick={() => handleSelect(option)}
               >
                 {option.label}
