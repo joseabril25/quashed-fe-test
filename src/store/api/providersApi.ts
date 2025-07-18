@@ -49,6 +49,7 @@ export const {
   useGetProvidersQuery,
   useGetProviderQuery,
   useGetProviderFormFieldsQuery,
+  useLazyGetProviderFormFieldsQuery,
   usePostSubmitProviderMutation,
   usePostConnectProviderMutation,
 } = providersApi;

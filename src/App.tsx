@@ -1,19 +1,44 @@
 import { ProviderTable } from './components/ProviderTable';
 import { ProviderModal } from './components/ProviderModal';
 import { FeedbackModal } from './components/FeedbackModal';
-import { useGetProvidersQuery } from './store/api/providersApi';
+import { useGetProvidersQuery, usePostConnectProviderMutation, useLazyGetProviderFormFieldsQuery } from './store/api/providersApi';
 import { useAppDispatch } from './store/hooks';
-import { selectProviderAndLoadData } from './store/slices/providersSlice';
+import { openModalWithProvider, setCurrentStep, setSelectedProvider, setFormFields } from './store/slices/providersSlice';
 import type { Provider } from './types/apiTypes';
 
 export const App = () => {
   const { data: providers, isLoading, error } = useGetProvidersQuery();
+  const [connectProvider] = usePostConnectProviderMutation();
+  const [getFormFields] = useLazyGetProviderFormFieldsQuery();
 
   const dispatch = useAppDispatch();
 
-  const onClickProvider = (provider: Provider) => {
-    if (provider.id) {
-      dispatch(selectProviderAndLoadData(provider));
+  const onClickProvider = async (provider: Provider) => {
+    if (!provider.id) return;
+    
+    try {
+      // Step 1: Open modal and set to connecting
+      dispatch(openModalWithProvider(provider));
+      
+      // Step 2: CONNECTING - Establish OAuth/API connection with provider
+      console.log('🔌 CONNECTING: Establishing OAuth/API connection...');
+      const connectionResult = await connectProvider({ providerId: provider.id }).unwrap();
+      
+      dispatch(setCurrentStep('retrieving'));
+      dispatch(setSelectedProvider(connectionResult.provider));
+      
+      // Step 3: RETRIEVING - Get form fields and user data
+      console.log('📡 RETRIEVING: Fetching form configuration...');
+      // TODO: In real scenario, this would also pull user eligibility, existing account data, etc.
+      const formFieldsResult = await getFormFields(provider.id).unwrap();
+      
+      // Step 4: Ready for form submission
+      dispatch(setCurrentStep('details'));
+      dispatch(setFormFields(formFieldsResult));
+      
+    } catch (error) {
+      console.error('Failed to connect to provider:', error);
+      // Handle error appropriately
     }
   }
 

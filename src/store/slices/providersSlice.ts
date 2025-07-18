@@ -1,41 +1,7 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Provider, FormField, ProviderDetailsForm, PaymentForm } from "../../types/apiTypes";
-import { providersApi } from "../api/providersApi";
 
 export type ModalStep = 'connecting' | 'retrieving' | 'details' | 'payment' | 'confirmation';
-
-// Async thunk to handle the provider selection flow
-export const selectProviderAndLoadData = createAsyncThunk(
-  'providers/selectProviderAndLoadData',
-  async (provider: Provider, { dispatch }) => {
-    // Step 1: Open modal and set to connecting
-    dispatch(openModalWithProviderId(provider));
-    
-    // Step 2: CONNECTING - Establish OAuth/API connection with provider
-    console.log('CONNECTING: Establishing OAuth/API connection...');
-    const connectionResult = await dispatch(
-      providersApi.endpoints.postConnectProvider.initiate(
-        { providerId: provider.id || '' }
-      )
-    ).unwrap();
-
-    dispatch(setCurrentStep('retrieving'));
-    dispatch(setSelectedProvider(connectionResult.provider));
-    
-    // Step 3: RETRIEVING - Get form fields and user data
-    console.log('RETRIEVING: Fetching form configuration...');
-    // TODO: In real scenario, this would also pull user eligibility, existing account data, etc.
-    const formFieldsResult = await dispatch(
-      providersApi.endpoints.getProviderFormFields.initiate(provider.id || '', { forceRefetch: true })
-    ).unwrap();
-    
-    // Step 4: Ready for form submission
-    dispatch(setCurrentStep('details'));
-    dispatch(setFormFields(formFieldsResult));
-    
-    return { provider: connectionResult.provider, formFields: formFieldsResult };
-  }
-);
 
 interface ProvidersState {
   providers: Provider[] | null;
@@ -70,13 +36,12 @@ const providerSlice = createSlice({
     clearProviders: (state) => {
       state.providers = null
     },
-    openModalWithProviderId: (state, action: PayloadAction<Provider>) => {
+    openModalWithProvider: (state, action: PayloadAction<Provider>) => {
       state.modalOpen = true;
       state.currentStep = 'connecting';
       state.detailsForm = null;
       state.paymentForm = null;
       state.formFields = null;
-      // Store a temporary provider with just the ID
       state.selectedProvider = action.payload;
     },
     setSelectedProvider: (state, action: PayloadAction<Provider>) => {
@@ -108,7 +73,7 @@ const providerSlice = createSlice({
 export const {
   setProviders,
   clearProviders,
-  openModalWithProviderId,
+  openModalWithProvider,
   setSelectedProvider,
   setFormFields,
   closeModal,
