@@ -1,10 +1,7 @@
 import logo from '../assets/logo.png'
 import { Icons } from './Icons'
-import { useAppDispatch } from '../store/hooks'
-import { openFeedbackModal } from '../store/slices/feedbackSlice'
 
 export const Navbar = () => {
-  const dispatch = useAppDispatch();
 
   return (
     <nav className="bg-[rgb(var(--color-primary))] px-4 py-2 sticky top-0 z-50">
@@ -19,8 +16,7 @@ export const Navbar = () => {
         <div className="hidden md:block">
           <div 
             className="bg-white rounded-full p-2 flex items-center justify-center m-w-[32px] cursor-pointer hover:bg-gray-100 transition-colors"
-            onClick={() => dispatch(openFeedbackModal())}
-            title="Give Feedback"
+            title="Account Settings"
           >
             <Icons name="account" color='rgb(var(--color-primary))' width={24} height={24} />
           </div>
