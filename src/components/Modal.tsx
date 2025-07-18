@@ -12,7 +12,7 @@ interface ModalProps {
   className?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({
+export const Modal = ({
   isOpen,
   onClose,
   children,
@@ -20,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({
   showCloseButton = true,
   closeOnOverlayClick = true,
   className = '',
-}) => {
+}: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -80,5 +80,3 @@ const Modal: React.FC<ModalProps> = ({
     document.body
   );
 };
-
-export default Modal;

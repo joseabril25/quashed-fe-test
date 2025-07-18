@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -19,7 +19,7 @@ interface DynamicFormProps {
   isLoading?: boolean;
 }
 
-const DynamicForm: React.FC<DynamicFormProps> = ({ fields, step, onSubmit, onCancel, isLoading }) => {
+const DynamicForm = ({ fields, step, onSubmit, onCancel, isLoading }: DynamicFormProps) => {
   const getButtonText = (step: ModalStep) => {
     switch(step) {
       case 'details':

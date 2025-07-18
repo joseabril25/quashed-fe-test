@@ -6,6 +6,7 @@ import { useAppSelector } from "./store/hooks";
 export const Layout = ({children}: {children: React.ReactNode}) => {
   const { isLoading } = useGetMeQuery();
   const { modalOpen } = useAppSelector((state) => state.providers);
+  const { modalOpen: feedbackModalOpen } = useAppSelector((state) => state.feedback);
 
   if (isLoading) {
     return (
@@ -18,7 +19,7 @@ export const Layout = ({children}: {children: React.ReactNode}) => {
   }
 
   return (
-    <div className={`${modalOpen && 'blur-sm'}`}>
+    <div className={`${modalOpen || feedbackModalOpen ? 'blur-sm' : ''}`}>
       <Navbar />
       {children}
     </div>

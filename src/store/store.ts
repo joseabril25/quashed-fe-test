@@ -3,15 +3,14 @@ import { userReducer } from "./slices/userSlice";
 import { baseApi } from "./api";
 import { providerReducer } from "./slices/providersSlice";
 import { appReducer } from "./slices/appSlice";
-
+import { feedbackReducer } from "./slices/feedbackSlice";
 
 export const store = configureStore({
   reducer: {
     app: appReducer,
     user: userReducer,
     providers: providerReducer,
-    // Add your reducers here
-    // For example, if you have a baseAPIQuery reducer:
+    feedback: feedbackReducer,
     [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: getDefaultMiddleware =>

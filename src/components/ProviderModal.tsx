@@ -1,6 +1,5 @@
-import React from 'react';
 import { closeModal, setCurrentStep, setDetailsForm, setPaymentForm } from '../store/slices/providersSlice';
-import Modal from './Modal';
+import { Modal } from './Modal';
 import DynamicForm from './DynamicForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { paymentFormFields } from '../constants/paymentFormFields';
@@ -8,8 +7,9 @@ import { Button } from './ui/Button';
 import { usePostSubmitProviderMutation } from '../store/api/providersApi';
 import type { ProviderDetailsForm, PaymentForm } from '../types/apiTypes';
 import { formatDate } from '../utils/dateUtils';
+import { openFeedbackModal } from '../store/slices/feedbackSlice';
 
-const ProviderModal: React.FC = () => {
+export const ProviderModal = () => {
   const dispatch = useAppDispatch();
   const { modalOpen, selectedProvider, currentStep, formFields, detailsForm } = useAppSelector((state) => state.providers);
   const [postSubmitProvider, { isLoading }] = usePostSubmitProviderMutation();
@@ -43,6 +43,10 @@ const ProviderModal: React.FC = () => {
 
   const handleBackToDashboard = () => {
     dispatch(closeModal());
+    // Open feedback modal after closing provider modal
+    setTimeout(() => {
+      dispatch(openFeedbackModal());
+    }, 300); // Small delay to ensure smooth transition
   };
 
   const renderContent = () => {
@@ -146,5 +150,3 @@ const ProviderModal: React.FC = () => {
     </Modal>
   );
 };
-
-export default ProviderModal;

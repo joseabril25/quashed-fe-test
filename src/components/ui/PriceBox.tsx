@@ -14,7 +14,7 @@ export const PriceBox = ({ price, perMonth, label, shortenedMonth, timestamp }: 
   return (
     <div>
       <div className="flex flex-row items-center gap-3">
-        <p className="text-2xl text-[rgb(var(--color-primary))] font-semibold">$ {price.toFixed(2)}</p>
+        <p className="text-2xl text-[rgb(var(--color-primary))] font-semibold">${price.toFixed(2)}</p>
         <p className="text-sm text-[rgb(var(--color-mono))] font-normal">/ { label ? label : (perMonth === 'month' ? (shortenedMonth ? 'mo' : 'month') : 'year')}</p>
       </div>
       {timestamp && (

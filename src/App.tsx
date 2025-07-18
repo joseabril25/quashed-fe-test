@@ -1,12 +1,13 @@
 import { Navbar } from './components/Navbar';
 import { ProviderTable } from './components/ProviderTable';
-import ProviderModal from './components/ProviderModal';
+import { ProviderModal } from './components/ProviderModal';
+import { FeedbackModal } from './components/FeedbackModal';
 import { useGetProvidersQuery } from './store/api/providersApi';
 import { useAppDispatch } from './store/hooks';
 import { selectProviderAndLoadData } from './store/slices/providersSlice';
 import type { Provider } from './types/apiTypes';
 
-const App = () => {
+export const App = () => {
   const { data: providers, isLoading, error } = useGetProvidersQuery();
 
   const dispatch = useAppDispatch();
@@ -48,8 +49,7 @@ const App = () => {
         </div>
       </div>
       <ProviderModal />
+      <FeedbackModal />
     </>
   );
 };
-
-export default App;
