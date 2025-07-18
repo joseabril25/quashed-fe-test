@@ -1,10 +1,6 @@
 import { baseApi, mockDelay } from './index';
 import type { Provider, FormField } from '../../types/apiTypes';
 import { mockFormFields, mockProviders } from '../../mock/mock';
-import { setCurrentStep, setSelectedProvider } from '../slices/providersSlice';
-
-// Mock data
-
 
 // Inject endpoints into base API
 export const providersApi = baseApi.injectEndpoints({

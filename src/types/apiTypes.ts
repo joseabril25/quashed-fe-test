@@ -49,4 +49,5 @@ export interface FormField {
     field: string
     value: any
   }
+  fullWidth?: boolean // Indicates if field should take full row width
 }

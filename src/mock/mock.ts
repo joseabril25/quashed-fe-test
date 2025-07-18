@@ -100,10 +100,11 @@ export const mockFormFields: Record<string, FormField[]> = {
     },
     {
       name: 'address',
-      type: 'textarea',
+      type: 'text',
       label: 'Address',
       placeholder: 'Enter your full address',
       required: true,
+      fullWidth: true,
       validation: {
         minLength: 10,
         maxLength: 200,
@@ -112,7 +113,7 @@ export const mockFormFields: Record<string, FormField[]> = {
     },
     {
       name: 'dataPerMonth',
-      type: 'select',
+      type: 'radio',
       label: 'Data per Month',
       required: true,
       options: [
@@ -178,10 +179,11 @@ export const mockFormFields: Record<string, FormField[]> = {
     },
     {
       name: 'address',
-      type: 'textarea',
+      type: 'text',
       label: 'Address',
       placeholder: 'Enter your full address',
       required: true,
+      fullWidth: true,
       validation: {
         minLength: 10,
         maxLength: 200,
@@ -190,7 +192,7 @@ export const mockFormFields: Record<string, FormField[]> = {
     },
     {
       name: 'dataPerMonth',
-      type: 'select',
+      type: 'radio',
       label: 'Data per Month',
       required: true,
       options: [
@@ -243,10 +245,11 @@ export const mockFormFields: Record<string, FormField[]> = {
     },
     {
       name: 'address',
-      type: 'textarea',
+      type: 'text',
       label: 'Address',
       placeholder: 'Enter your full address',
       required: true,
+      fullWidth: true,
       validation: {
         minLength: 10,
         maxLength: 200,
@@ -255,7 +258,7 @@ export const mockFormFields: Record<string, FormField[]> = {
     },
     {
       name: 'dataPerMonth',
-      type: 'select',
+      type: 'radio',
       label: 'Data per Month',
       required: true,
       options: [

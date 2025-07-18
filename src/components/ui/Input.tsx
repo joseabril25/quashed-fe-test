@@ -12,11 +12,11 @@ export const Input = ({ label, error, errorMessage, className = '', ref, ...prop
     const currentState = getFormState(props.disabled, error);
     
     return (
-      <div className="inline-block">
+      <div className="w-full">
         <label>{label}</label>
         <input
           ref={ref}
-          className={`${stateStyles[currentState]} ${className}`}
+          className={`w-full ${stateStyles[currentState]} ${className}`}
           {...props}
         />
         {error && errorMessage && (

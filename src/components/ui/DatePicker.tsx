@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { getFormStateStyles, getFormState } from '../../utils/formStyles';
 
@@ -11,33 +10,33 @@ interface DatePickerProps {
   errorMessage?: string;
   disabled?: boolean;
   dateFormat?: string;
+  className?: string;
 }
 
-export const DatePicker = ({ 
-  label, 
-  value, 
-  onChange, 
-  placeholder = "Select a date",
-  error, 
-  errorMessage,
-  disabled,
-  dateFormat = "MM/dd/yyyy"
-}: DatePickerProps) => {
+// Custom input component that matches our form style
+const CustomInput = ({ value, onClick, placeholder, ref, disabled, error }: {
+  value?: string;
+  onClick?: () => void;
+  placeholder?: string;
+  ref?: React.Ref<HTMLInputElement>;
+  disabled?: boolean;
+  error?: boolean;
+}) => {
   const stateStyles = getFormStateStyles();
   const currentState = getFormState(disabled, error);
   
-  // Custom input component that matches our form style
-  const CustomInput = forwardRef<HTMLInputElement, any>(({ value, onClick, placeholder }, ref) => (
-    <div className="relative">
+  return (
+    <div className="relative w-full">
       <input
         ref={ref}
         value={value}
         onClick={onClick}
         placeholder={placeholder}
         readOnly
-        className={stateStyles[currentState]}
+        disabled={disabled}
+        className={`w-full ${stateStyles[currentState]}`}
       />
-      {/* Calendar icon placeholder */}
+      {/* Calendar icon */}
       <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
         <svg 
           className="w-4 h-4 text-[rgb(var(--color-border))]" 
@@ -54,12 +53,22 @@ export const DatePicker = ({
         </svg>
       </div>
     </div>
-  ));
-  
-  CustomInput.displayName = 'CustomInput';
-  
+  );
+};
+
+export const DatePicker = ({ 
+  label, 
+  value, 
+  onChange, 
+  placeholder = "Select a date",
+  error, 
+  errorMessage,
+  disabled,
+  dateFormat = "MM/dd/yyyy",
+  className = ''
+}: DatePickerProps) => {
   return (
-    <div className="inline-block">
+    <div className={`w-full ${className}`}>
       <label>{label}</label>
       <ReactDatePicker
         selected={value}
@@ -67,7 +76,8 @@ export const DatePicker = ({
         dateFormat={dateFormat}
         placeholderText={placeholder}
         disabled={disabled}
-        customInput={<CustomInput />}
+        customInput={<CustomInput disabled={disabled} error={error} />}
+        wrapperClassName="w-full"
         popperClassName="z-50"
         calendarClassName="shadow-lg border border-gray-200 rounded-md"
       />

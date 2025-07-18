@@ -5,6 +5,7 @@ import { IconClose } from './Icons/icon-close';
 interface ModalProps {
   isOpen: boolean;
   children: React.ReactNode;
+  title?: string;
   onClose?: () => void;
   showCloseButton?: boolean;
   closeOnOverlayClick?: boolean;
@@ -15,6 +16,7 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   children,
+  title,
   showCloseButton = true,
   closeOnOverlayClick = true,
   className = '',
@@ -54,18 +56,24 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div
         ref={modalRef}
-        className={`relative bg-white shadow-xl w-[800px] max-w-[90vw] h-full p-12 overflow-y-auto animate-slideIn ${className}`}
+        className={`relative bg-white shadow-xl w-full md:w-[800px] max-w-[90vw] h-full p-4 md:p-8 overflow-y-auto animate-slideIn ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {showCloseButton && onClose && (
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
-            aria-label="Close modal"
-          >
-            <IconClose width={24} height={24} />
-          </button>
-        )}
+        <div className="flex items-center justify-between mb-8">
+          <h4 >
+            {title}
+          </h4>
+          {showCloseButton && onClose && (
+            <button
+              onClick={onClose}
+              className="flex items-center justify-center top-4 right-4 p-2 transition-colors cursor-pointer "
+              aria-label="Close modal"
+            >
+              {title && <p className=''>Disconnect</p>}
+              <IconClose width={24} height={24} color='rgb(var(--color-mono))' />
+            </button>
+          )}
+        </div>
         {children}
       </div>
     </div>,

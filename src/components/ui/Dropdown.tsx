@@ -15,6 +15,7 @@ interface DropdownProps {
   error?: boolean;
   errorMessage?: string;
   disabled?: boolean;
+  className?: string;
 }
 
 export const Dropdown = ({ 
@@ -25,7 +26,8 @@ export const Dropdown = ({
   placeholder = "Select an option",
   error, 
   errorMessage,
-  disabled 
+  disabled,
+  className = ''
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -57,14 +59,14 @@ export const Dropdown = ({
   };
   
   return (
-    <div className="inline-block" ref={dropdownRef}>
+    <div className="w-full" ref={dropdownRef}>
       <label>{label}</label>
       <div className="relative">
         <button
           type="button"
           className={
-            `w-[188px] h-10 px-3 pr-8 text-left text-sm border border-[rgb(var(--color-border))] transition-all duration-200 outline-none bg-white flex items-center justify-between 
-            ${stateStyles[currentState]} ${!disabled ? 'cursor-pointer' : ''}`
+            `w-full h-10 px-3 pr-8 text-left text-sm border border-[rgb(var(--color-border))] transition-all duration-200 outline-none bg-white flex items-center justify-between 
+            ${stateStyles[currentState]} ${!disabled ? 'cursor-pointer' : ''} ${className}`
           }
           onClick={() => !disabled && setIsOpen(!isOpen)}
           disabled={disabled}
@@ -83,7 +85,7 @@ export const Dropdown = ({
         </button>
         
         {isOpen && !disabled && (
-          <div className="absolute z-10 mt-1 bg-white shadow-[2px_2px_2px_0px_rgba(0,0,0,0.2),2px_2px_2px_0px_rgba(0,0,0,0.16)]">
+          <div className="absolute z-10 mt-1 w-full bg-white shadow-[2px_2px_2px_0px_rgba(0,0,0,0.2),2px_2px_2px_0px_rgba(0,0,0,0.16)]">
             {options.map((option) => (
               <button
                 key={option.value}

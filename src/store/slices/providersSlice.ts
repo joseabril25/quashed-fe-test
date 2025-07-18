@@ -11,17 +11,17 @@ export const selectProviderAndLoadData = createAsyncThunk(
     // Step 1: Open modal and set to connecting
     dispatch(openModalWithProviderId(provider));
     
-    // Call getProvider API (800ms delay, then sets retrieving state)
+    // Call getProvider API with forceRefetch to bypass cache
     const providerResult = await dispatch(
-      providersApi.endpoints.getProvider.initiate(provider.id || '')
+      providersApi.endpoints.getProvider.initiate(provider.id || '', { forceRefetch: true })
     ).unwrap();
 
     dispatch(setCurrentStep('retrieving'));
     dispatch(setSelectedProvider(providerResult));
     
-    // Call getProviderFormFields API (800ms delay, then sets details state)
+    // Call getProviderFormFields API with forceRefetch to bypass cache
     const formFieldsResult = await dispatch(
-      providersApi.endpoints.getProviderFormFields.initiate(provider.id || '')
+      providersApi.endpoints.getProviderFormFields.initiate(provider.id || '', { forceRefetch: true })
     ).unwrap();
     
     // Save form fields

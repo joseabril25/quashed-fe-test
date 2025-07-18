@@ -1,13 +1,23 @@
 import React from 'react';
-import { closeModal } from '../store/slices/providersSlice';
+import { closeModal, setCurrentStep, saveDetailsForm } from '../store/slices/providersSlice';
 import Modal from './Modal';
+import DynamicForm from './DynamicForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const ProviderModal: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { modalOpen, selectedProvider, currentStep } = useAppSelector((state) => state.providers);
+  const { modalOpen, selectedProvider, currentStep, formFields } = useAppSelector((state) => state.providers);
 
   const handleClose = () => {
+    dispatch(closeModal());
+  };
+
+  const handleFormSubmit = (data: Record<string, any>) => {
+    dispatch(saveDetailsForm(data));
+    dispatch(setCurrentStep('payment'));
+  };
+
+  const handleFormCancel = () => {
     dispatch(closeModal());
   };
 
@@ -20,10 +30,10 @@ const ProviderModal: React.FC = () => {
               <img 
                 src={selectedProvider.logo} 
                 alt={selectedProvider.name}
-                className="w-32 h-32 object-contain mb-8"
+                className="w-40 h-auto object-contain mb-16"
               />
             )}
-            <h2 className="text-2xl font-medium text-gray-900">Connecting...</h2>
+            <p className="text-sm font-regular text-[rgb(var(--color-neutral))]">Connecting...</p>
           </div>
         );
       
@@ -34,19 +44,22 @@ const ProviderModal: React.FC = () => {
               <img 
                 src={selectedProvider.logo} 
                 alt={selectedProvider.name}
-                className="w-32 h-32 object-contain mb-8"
+                className="w-40 h-auto object-contain mb-16"
               />
             )}
-            <h2 className="text-2xl font-medium text-gray-900">Retrieving Data...</h2>
+            <p className="text-sm font-regular text-[rgb(var(--color-neutral))]">Retrieving Data...</p>
           </div>
         );
       
       case 'details':
-        return (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Details Form</h2>
-            <p>Form fields will go here</p>
-          </div>
+        return formFields ? (
+          <DynamicForm
+            fields={formFields}
+            onSubmit={handleFormSubmit}
+            onCancel={handleFormCancel}
+          />
+        ) : (
+          <div>Loading form...</div>
         );
       
       case 'payment':
@@ -74,8 +87,9 @@ const ProviderModal: React.FC = () => {
     <Modal 
       isOpen={modalOpen} 
       onClose={handleClose}
-      showCloseButton={currentStep !== 'connecting' && currentStep !== 'retrieving'}
-      closeOnOverlayClick={currentStep !== 'connecting' && currentStep !== 'retrieving'}
+      showCloseButton={true}
+      closeOnOverlayClick={true}
+      title={formFields ? `${selectedProvider?.name} Purchase Form` : ''}
     >
       {renderContent()}
     </Modal>

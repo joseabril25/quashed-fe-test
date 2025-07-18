@@ -7,16 +7,16 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   errorMessage?: string;
 }
 
-export const TexAarea = ({ label, error, errorMessage, className = '', ref, ...props }: TextareaProps & { ref?: React.Ref<HTMLTextAreaElement> }) => {
+export const TextAarea = ({ label, error, errorMessage, className = '', ref, ...props }: TextareaProps & { ref?: React.Ref<HTMLTextAreaElement> }) => {
   const stateStyles = getFormStateStyles();
   const currentState = getFormState(props.disabled, error);
   
   return (
-    <div className="inline-block">
+    <div className="w-full">
       <label>{label}</label>
       <textarea
         ref={ref}
-        className={`${stateStyles[currentState]} ${className}`}
+        className={`w-full ${stateStyles[currentState]} ${className}`}
         {...props}
       />
       {error && errorMessage && (
