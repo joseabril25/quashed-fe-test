@@ -11,24 +11,29 @@ export const selectProviderAndLoadData = createAsyncThunk(
     // Step 1: Open modal and set to connecting
     dispatch(openModalWithProviderId(provider));
     
-    // Call getProvider API with forceRefetch to bypass cache
-    const providerResult = await dispatch(
-      providersApi.endpoints.getProvider.initiate(provider.id || '', { forceRefetch: true })
+    // Step 2: CONNECTING - Establish OAuth/API connection with provider
+    console.log('CONNECTING: Establishing OAuth/API connection...');
+    const connectionResult = await dispatch(
+      providersApi.endpoints.postConnectProvider.initiate(
+        { providerId: provider.id || '' }
+      )
     ).unwrap();
 
     dispatch(setCurrentStep('retrieving'));
-    dispatch(setSelectedProvider(providerResult));
+    dispatch(setSelectedProvider(connectionResult.provider));
     
-    // Call getProviderFormFields API with forceRefetch to bypass cache
+    // Step 3: RETRIEVING - Get form fields and user data
+    console.log('RETRIEVING: Fetching form configuration...');
+    // TODO: In real scenario, this would also pull user eligibility, existing account data, etc.
     const formFieldsResult = await dispatch(
       providersApi.endpoints.getProviderFormFields.initiate(provider.id || '', { forceRefetch: true })
     ).unwrap();
     
-    // Save form fields
+    // Step 4: Ready for form submission
     dispatch(setCurrentStep('details'));
     dispatch(setFormFields(formFieldsResult));
     
-    return { provider: providerResult, formFields: formFieldsResult };
+    return { provider: connectionResult.provider, formFields: formFieldsResult };
   }
 );
 

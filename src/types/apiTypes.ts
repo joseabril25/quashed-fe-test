@@ -81,3 +81,30 @@ export interface ProviderPurchaseResponse {
   message: string
   orderId?: string
 }
+
+
+// New interfaces for realistic flow
+export interface ConnectProviderRequest {
+  providerId: string;
+  redirectUri?: string;
+}
+
+export interface ConnectProviderResponse {
+  success: boolean;
+  authUrl?: string;
+  provider: Provider;
+  message: string;
+}
+
+export interface UserAccountData {
+  user: User;
+  eligiblePlans: Array<{
+    id: string;
+    name: string;
+    price: number;
+    recommended?: boolean;
+  }>;
+  currentProvider?: string;
+  existingAddress?: string;
+  hasActiveService: boolean;
+}
