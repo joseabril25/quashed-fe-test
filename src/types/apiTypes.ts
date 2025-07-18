@@ -44,16 +44,16 @@ export interface FormField {
     pattern?: string
     message?: string
   }
-  defaultValue?: any
+  defaultValue?: unknown
   dependsOn?: {
     field: string
-    value: any
+    value: unknown
   }
   fullWidth?: boolean // Indicates if field should take full row width
 }
 
 // Provider purchase form types
-export interface ProviderDetailsForm {
+export interface ProviderDetailsForm extends Record<string, unknown> {
   firstName: string
   lastName: string
   address: string
@@ -64,7 +64,7 @@ export interface ProviderDetailsForm {
   needsRouter?: string
 }
 
-export interface PaymentForm {
+export interface PaymentForm extends Record<string, unknown> {
   cardNumber: string
   expiryDate: string
   nameOnCard: string

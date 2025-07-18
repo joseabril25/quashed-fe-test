@@ -20,7 +20,7 @@ export const paymentFormFields: FormField[] = [
     placeholder: 'MM/YY',
     required: true,
     validation: {
-      pattern: '^(0[1-9]|1[0-2])\/[0-9]{2}$',
+      pattern: '^(0[1-9]|1[0-2])/[0-9]{2}$',
       message: 'Please enter a valid expiry date (MM/YY)'
     }
   },

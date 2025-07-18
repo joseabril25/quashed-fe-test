@@ -23,4 +23,4 @@ export const baseApi = createApi({
 });
 
 // Export hooks for usage in functional components
-export const {} = baseApi;
+// All hooks are exported from individual API files (providersApi, etc.)

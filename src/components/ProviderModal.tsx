@@ -18,7 +18,7 @@ export const ProviderModal = () => {
     dispatch(closeModal());
   };
 
-  const handleFormSubmit = (data: Record<string, any>) => {
+  const handleFormSubmit = (data: Record<string, unknown>) => {
     dispatch(setDetailsForm(data as ProviderDetailsForm));
     dispatch(setCurrentStep('payment'));
   };
@@ -27,7 +27,7 @@ export const ProviderModal = () => {
     dispatch(closeModal());
   };
 
-  const handlePaymentSubmit = async (data: Record<string, any>) => {
+  const handlePaymentSubmit = async (data: Record<string, unknown>) => {
     const paymentData = data as PaymentForm;
     dispatch(setPaymentForm(paymentData));
     

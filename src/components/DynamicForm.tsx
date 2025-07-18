@@ -14,7 +14,7 @@ import type { ModalStep } from '../store/slices/providersSlice';
 interface DynamicFormProps {
   fields: FormField[];
   step: ModalStep;
-  onSubmit: (data: Record<string, any>) => void;
+  onSubmit: (data: Record<string, unknown>) => void;
   onCancel: () => void;
   isLoading?: boolean;
 }
@@ -35,20 +35,20 @@ const DynamicForm = ({ fields, step, onSubmit, onCancel, isLoading }: DynamicFor
 
   // Generate Yup validation schema from form fields
   const generateValidationSchema = (fields: FormField[]) => {
-    const schemaObject: Record<string, any> = {};
+    const schemaObject: Record<string, yup.AnySchema> = {};
     
     fields.forEach(field => {
-      let validator: any = yup.mixed();
+      let validator: yup.AnySchema = yup.mixed();
       
       switch (field.type) {
         case 'text':
         case 'textarea':
           validator = yup.string();
           if (field.validation?.minLength) {
-            validator = validator.min(field.validation.minLength, field.validation.message);
+            validator = (validator as yup.StringSchema).min(field.validation.minLength, field.validation.message);
           }
           if (field.validation?.maxLength) {
-            validator = validator.max(field.validation.maxLength, field.validation.message);
+            validator = (validator as yup.StringSchema).max(field.validation.maxLength, field.validation.message);
           }
           break;
         case 'date':
@@ -83,7 +83,8 @@ const DynamicForm = ({ fields, step, onSubmit, onCancel, isLoading }: DynamicFor
   const validationSchema = generateValidationSchema(fields);
   
   const { control, handleSubmit, formState: { errors, isValid } } = useForm({
-    resolver: yupResolver(validationSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: yupResolver(validationSchema) as any,
     mode: 'onChange'
   });
 
