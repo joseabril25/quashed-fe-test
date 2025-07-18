@@ -19,7 +19,7 @@ export const baseApi = createApi({
     },
   }),
   tagTypes: ['User', 'Providers'],
-  endpoints: () => ({}),
+  endpoints: () => ({}), // No endpoints defined here, will be injected later
 });
 
 // Export hooks for usage in functional components

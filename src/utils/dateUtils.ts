@@ -57,9 +57,9 @@ export const dateToTimestamp = (date: Date | null): number | null => {
  * Check if a timestamp is valid
  * @param timestamp - Unix timestamp in milliseconds
  * @returns Boolean indicating if the timestamp is valid
- */
-export const isValidTimestamp = (timestamp: any): timestamp is number => {
-  return typeof timestamp === 'number' && !isNaN(timestamp) && timestamp > 0;
+  */
+export const isValidTimestamp = (timestamp: number): timestamp is number => {
+  return !isNaN(timestamp) && timestamp > 0;
 };
 
 /**

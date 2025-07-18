@@ -1,4 +1,3 @@
-import { Navbar } from './components/Navbar';
 import { ProviderTable } from './components/ProviderTable';
 import { ProviderModal } from './components/ProviderModal';
 import { FeedbackModal } from './components/FeedbackModal';
@@ -31,7 +30,6 @@ export const App = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="flex items-center justify-center h-96">
           <p className="text-lg text-red-600">Error loading providers</p>
         </div>
