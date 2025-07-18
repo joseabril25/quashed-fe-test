@@ -9,14 +9,29 @@ import { DatePicker } from './ui/DatePicker';
 import { Chip } from './ui/Chip';
 import { Button } from './ui/Button';
 import { TextAarea } from './ui/TextArea';
+import type { ModalStep } from '../store/slices/providersSlice';
 
 interface DynamicFormProps {
   fields: FormField[];
+  step: ModalStep;
   onSubmit: (data: Record<string, any>) => void;
   onCancel: () => void;
 }
 
-const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, onCancel }) => {
+const DynamicForm: React.FC<DynamicFormProps> = ({ fields, step, onSubmit, onCancel }) => {
+  const getButtonText = (step: ModalStep) => {
+    switch(step) {
+      case 'details':
+        return 'Continue';
+      case 'payment':
+        return 'Confirm & Pay';
+      case 'confirmation':
+        return 'Back to Dashboard';
+      default:
+        return 'Submit';
+    }
+  };
+
   // Generate Yup validation schema from form fields
   const generateValidationSchema = (fields: FormField[]) => {
     const schemaObject: Record<string, any> = {};
@@ -305,10 +320,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, onCancel })
           <Button
             type="submit"
             variant="primary"
-            showArrow
+            showArrow={step !== 'payment'}
             disabled={!isValid}
           >
-            Continue
+            {getButtonText(step)}
           </Button>
         </div>
       </form>

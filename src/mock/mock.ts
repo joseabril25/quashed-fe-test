@@ -51,7 +51,7 @@ export const mockProviders: Provider[] = [
   },
   {
     id: '3',
-    name: 'TechCorp',
+    name: 'Tebiobio',
     logo: '/src/assets/images/tebiobio.png',
     slogan: 'Enterprise-grade connectivity',
     pricePerMonth: 129.99,

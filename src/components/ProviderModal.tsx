@@ -1,12 +1,14 @@
 import React from 'react';
-import { closeModal, setCurrentStep, saveDetailsForm } from '../store/slices/providersSlice';
+import { closeModal, setCurrentStep, saveDetailsForm, savePaymentForm } from '../store/slices/providersSlice';
 import Modal from './Modal';
 import DynamicForm from './DynamicForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { paymentFormFields } from '../constants/paymentFormFields';
+import { Button } from './ui/Button';
 
 const ProviderModal: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { modalOpen, selectedProvider, currentStep, formFields } = useAppSelector((state) => state.providers);
+  const { modalOpen, selectedProvider, currentStep, formFields, formData } = useAppSelector((state) => state.providers);
 
   const handleClose = () => {
     dispatch(closeModal());
@@ -19,6 +21,16 @@ const ProviderModal: React.FC = () => {
 
   const handleFormCancel = () => {
     dispatch(closeModal());
+  };
+
+  const handlePaymentSubmit = (data: Record<string, any>) => {
+    dispatch(savePaymentForm(data));
+    dispatch(setCurrentStep('confirmation'));
+  };
+
+  const handleBackToDashboard = () => {
+    dispatch(closeModal());
+    // Navigate back to dashboard logic can be added here
   };
 
   const renderContent = () => {
@@ -55,6 +67,7 @@ const ProviderModal: React.FC = () => {
         return formFields ? (
           <DynamicForm
             fields={formFields}
+            step={currentStep}
             onSubmit={handleFormSubmit}
             onCancel={handleFormCancel}
           />
@@ -64,22 +77,45 @@ const ProviderModal: React.FC = () => {
       
       case 'payment':
         return (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Payment Form</h2>
-            <p>Payment form will go here</p>
-          </div>
+          <DynamicForm
+            fields={paymentFormFields}
+            step={currentStep}
+            onSubmit={handlePaymentSubmit}
+            onCancel={handleFormCancel}
+          />
         );
       
       case 'confirmation':
         return (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Confirmation</h2>
-            <p>Confirmation will go here</p>
+          <div className='flex flex-col justify-between h-[80vh]'>
+            <div>
+              <p className='mb-4'>Your contract starts from {formData?.details?.startDate}</p>
+              <p>{selectedProvider?.name} specialists will contact you with further steps.</p>
+            </div>
+            <div className="flex justify-end gap-4 pt-6">
+              <Button
+                type="submit"
+                variant="primary"
+                showArrow={true}
+                onClick={handleBackToDashboard}
+              >
+                Back to Dashboard
+              </Button>
+            </div>
           </div>
         );
       
       default:
         return null;
+    }
+  };
+
+  const getModalTitle = () => {
+    switch (currentStep) {
+      case 'details':
+        return `${selectedProvider?.name} Purchase Form`;
+      default:
+        return `${selectedProvider?.name} Purchase`;
     }
   };
 
@@ -89,7 +125,7 @@ const ProviderModal: React.FC = () => {
       onClose={handleClose}
       showCloseButton={true}
       closeOnOverlayClick={true}
-      title={formFields ? `${selectedProvider?.name} Purchase Form` : ''}
+      title={formFields ? getModalTitle() : ''}
     >
       {renderContent()}
     </Modal>
