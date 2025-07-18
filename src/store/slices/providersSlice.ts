@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
-import type { Provider, FormField } from "../../types/apiTypes";
+import type { Provider, FormField, ProviderDetailsForm, PaymentForm } from "../../types/apiTypes";
 import { providersApi } from "../api/providersApi";
 
 export type ModalStep = 'connecting' | 'retrieving' | 'details' | 'payment' | 'confirmation';
@@ -38,10 +38,8 @@ interface ProvidersState {
   modalOpen: boolean;
   currentStep: ModalStep;
   formFields: FormField[] | null;
-  formData: {
-    details?: Record<string, any>;
-    payment?: Record<string, any>;
-  };
+  detailsForm: ProviderDetailsForm | null;
+  paymentForm: PaymentForm | null;
 }
 
 const initialState: ProvidersState = {
@@ -50,7 +48,8 @@ const initialState: ProvidersState = {
   modalOpen: false,
   currentStep: 'connecting',
   formFields: null,
-  formData: {},
+  detailsForm: null,
+  paymentForm: null
 }
 
 const providerSlice = createSlice({
@@ -69,7 +68,8 @@ const providerSlice = createSlice({
     openModalWithProviderId: (state, action: PayloadAction<Provider>) => {
       state.modalOpen = true;
       state.currentStep = 'connecting';
-      state.formData = {};
+      state.detailsForm = null;
+      state.paymentForm = null;
       state.formFields = null;
       // Store a temporary provider with just the ID
       state.selectedProvider = action.payload;
@@ -84,17 +84,18 @@ const providerSlice = createSlice({
       state.modalOpen = false;
       state.selectedProvider = null;
       state.currentStep = 'connecting';
-      state.formData = {};
+      state.detailsForm = null;
+      state.paymentForm = null;
       state.formFields = null;
     },
     setCurrentStep: (state, action: PayloadAction<ModalStep>) => {
       state.currentStep = action.payload;
     },
-    saveDetailsForm: (state, action: PayloadAction<Record<string, any>>) => {
-      state.formData.details = action.payload;
+    setDetailsForm: (state, action: PayloadAction<ProviderDetailsForm>) => {
+      state.detailsForm = action.payload;
     },
-    savePaymentForm: (state, action: PayloadAction<Record<string, any>>) => {
-      state.formData.payment = action.payload;
+    setPaymentForm: (state, action: PayloadAction<PaymentForm>) => {
+      state.paymentForm = action.payload;
     },
   }
 })
@@ -107,8 +108,8 @@ export const {
   setFormFields,
   closeModal,
   setCurrentStep,
-  saveDetailsForm,
-  savePaymentForm,
+  setDetailsForm,
+  setPaymentForm,
 } = providerSlice.actions
 
 export const providerReducer = providerSlice.reducer

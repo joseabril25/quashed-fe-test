@@ -5,9 +5,7 @@ export const getFormStateStyles = (options: {
 } = {}) => {
   const { includeHoverShadow = false, includeFocusShadow = false } = options;
   
-  const shadowStyles = includeHoverShadow || includeFocusShadow 
-    ? 'shadow-[2px_2px_2px_0px_rgba(0,0,0,0.2),2px_2px_2px_0px_rgba(0,0,0,0.16)]' 
-    : '';
+  const shadowStyles = 'shadow-[2px_2px_2px_0px_rgba(0,0,0,0.2),2px_2px_2px_0px_rgba(0,0,0,0.16)]';
   
   return {
     default: `placeholder-[rgb(var(--color-border))] hover:border-[rgb(var(--color-primary))] focus:border-[rgb(var(--color-primary))] ${includeHoverShadow ? `hover:${shadowStyles}` : ''} ${includeFocusShadow ? `focus:${shadowStyles}` : ''}`.trim(),

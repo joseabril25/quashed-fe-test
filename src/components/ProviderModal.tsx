@@ -1,21 +1,25 @@
 import React from 'react';
-import { closeModal, setCurrentStep, saveDetailsForm, savePaymentForm } from '../store/slices/providersSlice';
+import { closeModal, setCurrentStep, setDetailsForm, setPaymentForm } from '../store/slices/providersSlice';
 import Modal from './Modal';
 import DynamicForm from './DynamicForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { paymentFormFields } from '../constants/paymentFormFields';
 import { Button } from './ui/Button';
+import { usePostSubmitProviderMutation } from '../store/api/providersApi';
+import type { ProviderDetailsForm, PaymentForm } from '../types/apiTypes';
+import { formatDate } from '../utils/dateUtils';
 
 const ProviderModal: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { modalOpen, selectedProvider, currentStep, formFields, formData } = useAppSelector((state) => state.providers);
+  const { modalOpen, selectedProvider, currentStep, formFields, detailsForm } = useAppSelector((state) => state.providers);
+  const [postSubmitProvider, { isLoading }] = usePostSubmitProviderMutation();
 
   const handleClose = () => {
     dispatch(closeModal());
   };
 
   const handleFormSubmit = (data: Record<string, any>) => {
-    dispatch(saveDetailsForm(data));
+    dispatch(setDetailsForm(data as ProviderDetailsForm));
     dispatch(setCurrentStep('payment'));
   };
 
@@ -23,21 +27,29 @@ const ProviderModal: React.FC = () => {
     dispatch(closeModal());
   };
 
-  const handlePaymentSubmit = (data: Record<string, any>) => {
-    dispatch(savePaymentForm(data));
-    dispatch(setCurrentStep('confirmation'));
+  const handlePaymentSubmit = async (data: Record<string, any>) => {
+    const paymentData = data as PaymentForm;
+    dispatch(setPaymentForm(paymentData));
+    
+    // Submit the complete form data to the API
+    if (selectedProvider && detailsForm && paymentData) {
+      await postSubmitProvider({
+        providerId: selectedProvider.id || '',
+        details: detailsForm,
+        payment: paymentData
+      });
+    }
   };
 
   const handleBackToDashboard = () => {
     dispatch(closeModal());
-    // Navigate back to dashboard logic can be added here
   };
 
   const renderContent = () => {
     switch (currentStep) {
       case 'connecting':
         return (
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className="flex flex-col items-center justify-center h-[80vh]">
             {selectedProvider?.logo && (
               <img 
                 src={selectedProvider.logo} 
@@ -51,7 +63,7 @@ const ProviderModal: React.FC = () => {
       
       case 'retrieving':
         return (
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className="flex flex-col items-center justify-center h-[80vh]">
             {selectedProvider?.logo && (
               <img 
                 src={selectedProvider.logo} 
@@ -66,6 +78,7 @@ const ProviderModal: React.FC = () => {
       case 'details':
         return formFields ? (
           <DynamicForm
+            key="details-form"
             fields={formFields}
             step={currentStep}
             onSubmit={handleFormSubmit}
@@ -78,10 +91,12 @@ const ProviderModal: React.FC = () => {
       case 'payment':
         return (
           <DynamicForm
+            key="payment-form"
             fields={paymentFormFields}
             step={currentStep}
             onSubmit={handlePaymentSubmit}
             onCancel={handleFormCancel}
+            isLoading={isLoading}
           />
         );
       
@@ -89,7 +104,7 @@ const ProviderModal: React.FC = () => {
         return (
           <div className='flex flex-col justify-between h-[80vh]'>
             <div>
-              <p className='mb-4'>Your contract starts from {formData?.details?.startDate}</p>
+              <p className='mb-4'>Your contract starts from {formatDate(detailsForm?.contractStartDate)}</p>
               <p>{selectedProvider?.name} specialists will contact you with further steps.</p>
             </div>
             <div className="flex justify-end gap-4 pt-6">

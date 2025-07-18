@@ -1,6 +1,7 @@
 import { baseApi, mockDelay } from './index';
-import type { Provider, FormField } from '../../types/apiTypes';
+import type { Provider, FormField, ProviderPurchaseRequest, ProviderPurchaseResponse } from '../../types/apiTypes';
 import { mockFormFields, mockProviders } from '../../mock/mock';
+import { setCurrentStep } from '../slices/providersSlice';
 
 // Inject endpoints into base API
 export const providersApi = baseApi.injectEndpoints({
@@ -41,6 +42,24 @@ export const providersApi = baseApi.injectEndpoints({
       },
       providesTags: ['Providers'],
     }),
+    postSubmitProvider: builder.mutation<ProviderPurchaseResponse, ProviderPurchaseRequest>({
+      queryFn: async ({ providerId, details, payment }, { dispatch}) => {
+        await mockDelay(800);
+        // Simulate form submission logic
+        console.log(`Submitting form for provider ${providerId} with details:`, details, 'and payment:', payment);
+        
+        // Here you would typically send the data to your backend
+        dispatch(setCurrentStep('confirmation'));
+
+        return { 
+          data: { 
+            message: 'Form submitted successfully',
+            orderId: `ORDER-${Date.now()}`,
+          } 
+        };
+      },
+      invalidatesTags: ['Providers'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -50,4 +69,5 @@ export const {
   useGetProvidersQuery,
   useGetProviderQuery,
   useGetProviderFormFieldsQuery,
+  usePostSubmitProviderMutation,
 } = providersApi;

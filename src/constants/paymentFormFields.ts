@@ -8,7 +8,8 @@ export const paymentFormFields: FormField[] = [
     placeholder: '1234 5678 9012 3456',
     required: true,
     validation: {
-      pattern: '^[0-9]{16}$',
+      minLength: 16,
+      maxLength: 16,
       message: 'Please enter a valid 16-digit card number'
     }
   },

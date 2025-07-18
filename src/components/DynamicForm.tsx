@@ -16,9 +16,10 @@ interface DynamicFormProps {
   step: ModalStep;
   onSubmit: (data: Record<string, any>) => void;
   onCancel: () => void;
+  isLoading?: boolean;
 }
 
-const DynamicForm: React.FC<DynamicFormProps> = ({ fields, step, onSubmit, onCancel }) => {
+const DynamicForm: React.FC<DynamicFormProps> = ({ fields, step, onSubmit, onCancel, isLoading }) => {
   const getButtonText = (step: ModalStep) => {
     switch(step) {
       case 'details':
@@ -51,7 +52,14 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, step, onSubmit, onCan
           }
           break;
         case 'date':
-          validator = yup.date();
+          validator = yup.number()
+            .positive('Date must be valid')
+            .integer('Date must be valid')
+            .transform((value) => {
+              // Handle Date objects or timestamps
+              if (value instanceof Date) return value.getTime();
+              return value;
+            });
           break;
         case 'select':
         case 'radio':
@@ -225,7 +233,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, step, onSubmit, onCan
                 <DatePicker
                   label={field.label}
                   value={value ? new Date(value) : null}
-                  onChange={(date) => onChange(date?.toISOString().split('T')[0])}
+                  onChange={(date) => onChange(date?.getTime())}
                   placeholder="dd / mm / yyyy"
                   error={!!error}
                   errorMessage={errorMessage}
@@ -321,9 +329,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, step, onSubmit, onCan
             type="submit"
             variant="primary"
             showArrow={step !== 'payment'}
-            disabled={!isValid}
+            disabled={!isValid || isLoading}
           >
-            {getButtonText(step)}
+            {isLoading ? 'Submitting...' : getButtonText(step)}
           </Button>
         </div>
       </form>

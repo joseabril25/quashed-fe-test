@@ -51,3 +51,33 @@ export interface FormField {
   }
   fullWidth?: boolean // Indicates if field should take full row width
 }
+
+// Provider purchase form types
+export interface ProviderDetailsForm {
+  firstName: string
+  lastName: string
+  address: string
+  dataPerMonth: string
+  contractStartDate: number
+  additionalServices?: string[]
+  currentProvider?: string
+  needsRouter?: string
+}
+
+export interface PaymentForm {
+  cardNumber: string
+  expiryDate: string
+  nameOnCard: string
+  cvv: string
+}
+
+export interface ProviderPurchaseRequest {
+  providerId: string
+  details: ProviderDetailsForm
+  payment: PaymentForm
+}
+
+export interface ProviderPurchaseResponse {
+  message: string
+  orderId?: string
+}

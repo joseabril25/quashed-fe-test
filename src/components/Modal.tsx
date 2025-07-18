@@ -56,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div
         ref={modalRef}
-        className={`relative bg-white shadow-xl w-full md:w-[800px] max-w-[90vw] h-full p-4 md:p-8 overflow-y-auto animate-slideIn ${className}`}
+        className={`relative bg-white shadow-xl w-full md:w-[800px] md:max-w-[90vw] h-full p-4 md:p-8 overflow-y-auto animate-slideIn ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-8">
